@@ -19,15 +19,19 @@ export default function FriendList() {
   return (
     <>
       <h1>Friend List</h1>
-      <ul>
-        {friendList.map((friend) => (
-          <li key={friend.id}>
-            <img src={friend.img} alt={friend.pseudo} />
-            <p>{friend.pseudo}</p>
-            {/* add chat button and online status ? */}
-          </li>
-        ))}
-      </ul>
+      {friendList.length === 0 ? (
+        <p>No friends to display</p>
+      ) : (
+        <ul>
+          {friendList.map((friend) => (
+            <li key={friend.id}>
+              <img src={friend.img} alt={friend.pseudo} />
+              <p>{friend.pseudo}</p>
+              {/* add chat button and online status ? */}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

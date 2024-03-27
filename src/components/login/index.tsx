@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { LoginData, loginUser } from "../../services/login";
 import "./index.scss";
 import { FaEnvelope, FaLock } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Index() {
 
@@ -31,6 +32,7 @@ export default function Index() {
                         <FaLock />
                         <input placeholder="Password" className="textual-input" required type="password" id="password" name="password" value={ formData.password } onChange={ handleInputChange } />
                     </div>
+                    <span>Don't have an account ? <Link to={ "/register" }>Sign Up</Link></span>
                     <button>Submit</button>
                 </form>
             </div>

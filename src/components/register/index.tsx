@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RegisterData, registerUser } from "../../services/register";
 import "./index.scss";
 import { FaEnvelope, FaLock, FaRegUser } from "react-icons/fa"
+import { Link } from "react-router-dom";
 
 export default function Index() {
 
@@ -50,6 +51,7 @@ export default function Index() {
                         <label htmlFor="profilePicture">Profile picture (optional)</label>
                         <input type="file" id="profilePicture" name="profilePicture" onChange={ handleInputChange } accept="image/*" />
                     </div>
+                    <span>Already have an account ? <Link to={ "/login" }>Log In</Link></span>
                     <button>Submit</button>
                 </form>
             </div>

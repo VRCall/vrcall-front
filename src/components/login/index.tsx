@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { LoginData, loginUser } from "../../services/login";
+import "./index.scss";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
 export default function Index() {
 
@@ -17,18 +19,22 @@ export default function Index() {
 
     return (
 
-        <form className="register-form" onSubmit={ handleSubmit }>
-            Login
-            <div>
-                <label htmlFor="email">Email address</label>
-                <input required type="email" id="email" name="email" value={ formData.email } onChange={ handleInputChange } />
+        <div className="main">
+            <div className="main-login">
+                <form className="login-form" onSubmit={ handleSubmit }>
+                    Login
+                    <div className="textual-input-div">
+                        <FaEnvelope />
+                        <input placeholder="Email address" className="textual-input" required type="email" id="email" name="email" value={ formData.email } onChange={ handleInputChange } />
+                    </div>
+                    <div className="textual-input-div">
+                        <FaLock />
+                        <input placeholder="Password" className="textual-input" required type="password" id="password" name="password" value={ formData.password } onChange={ handleInputChange } />
+                    </div>
+                    <button>Submit</button>
+                </form>
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input required type="password" id="password" name="password" value={ formData.password } onChange={ handleInputChange } />
-            </div>
-            <button>Submit</button>
-        </form>
+        </div>
 
     )
 

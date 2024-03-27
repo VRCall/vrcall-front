@@ -3,6 +3,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import './App.scss'
 import AuthGuard from './components/guards/AuthGuard'
+import Home from './pages/Home'
 
 function App() {
   
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="home" element={<Home />} />
         </Routes>
       </AuthGuard>
     </BrowserRouter>

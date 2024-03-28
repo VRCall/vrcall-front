@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { sendMessage, getMessages, Message } from "../../services/chat";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
+import "./indexChat.scss";
 
 const socket = io.connect(`${import.meta.env.VITE_API_URL}`);
 
-export default function Index() {
+export default function ChatFriend() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState("");
     const [error, setError] = useState("");
@@ -14,9 +15,11 @@ export default function Index() {
 
     useEffect(() => {
         loadMessages();
-
+        console.log("sendMessage");
+        
         socket.on("receiveMessage", (message: string) => {
             console.log(message);
+            console.log(messages);
             
             setMessages(prevMessages => [...prevMessages, {text: message, id: id!}]);
         });
@@ -46,11 +49,10 @@ export default function Index() {
         event.preventDefault();
         if (newMessage.trim() !== "") {
             try {
-                const newMessageData = await sendMessage({ text: newMessage, friendship_id: id!});
-
+                await sendMessage({ text: newMessage, friendship_id: id!});
+                
                 socket.emit("sendMessage", newMessage);
 
-                setMessages([...messages, newMessageData]);
                 setNewMessage("");
             } catch (error) {
                 console.error("Error sending message:", error);
@@ -60,25 +62,27 @@ export default function Index() {
     };
 
     return (
-        <div>
-            <h1>Chat</h1>
-            <div className="chat-container">
-                {messages && messages.map((message, index) => (
-                    <div key={index}>
-                        {message.text}
-                    </div>
-                ))}
-            </div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={newMessage}
-                    onChange={handleInputChange}
-                    placeholder="Type your message..."
-                />
-                <button type="submit">Send</button>
-            </form>
-            {error && <div className="error">{error}</div>}
+        <div className="main">
+          <h1>Chat</h1>
+          <div className="chat-container">
+            {messages && messages.map((message, index) => (
+              <div className="message" key={index}>
+                {message.text}
+              </div>
+            ))}
+          </div>
+          <form className="message-input" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={newMessage}
+              onChange={handleInputChange}
+              placeholder="Type your message..."
+            />
+            <button type="submit">Send</button>
+          </form>
+          {error && <div className="error">{error}</div>}
         </div>
-    );
+      );
+      
+    
 }

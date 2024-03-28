@@ -1,10 +1,10 @@
-import Index from "../components/chat";
+import ChatFriend from "../components/chat";
 
 export default function Chat() {
 
     return (
 
-        <Index />
+        <ChatFriend />
 
     )
 

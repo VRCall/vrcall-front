@@ -13,8 +13,8 @@
 
 .links {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   width: 100%;
@@ -29,6 +29,16 @@
   &:hover {
     background-color: rgb(28, 86, 128);
     transition: all 0.3s;
+  }
+
+  .linkText {
+    margin-left: 10px;
+  }
+
+  .linkIcon {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
   }
 }
 .links:first-child {
@@ -47,17 +57,34 @@
 }
 
 .disconnectButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
   margin-bottom: 10px;
   background-color: #1d415c;
   text-decoration: none;
-  border: none;
-  border-radius: 3px;
-  width: 90%;
   font-size: 1em;
   line-height: 2;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  padding: 0;
 
   &:hover {
     background-color: rgb(28, 86, 128);
     transition: all 0.3s;
+  }
+}
+
+.buttonLinkIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+
+  .buttonText {
+    margin-left: 10px;
   }
 }

@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import SimplifedFriendList from "../friendList/SimplifiedFriendList";
 import "./NavBar.scss";
+import { FaUserFriends } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { ImExit } from "react-icons/im";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -15,11 +18,17 @@ export default function NavBar() {
       <div className="linksMessages">
         <div>
           <Link to={""} className="links">
-            Friends
+            <div className="linkIcon">
+              <FaUserFriends />
+            </div>
+            <p className="linkText">Friends</p>
           </Link>
 
           <Link to={"/profile"} className="links">
-            Profile
+            <div className="linkIcon">
+              <CgProfile />
+            </div>
+            <p className="linkText">Profile</p>
           </Link>
         </div>
         <div className="messages">
@@ -31,7 +40,10 @@ export default function NavBar() {
         className="disconnectButton"
         onClick={() => handleDisconnection()}
       >
-        Disconnect
+        <div className="buttonLinkIcon">
+          <ImExit />
+          <p className="buttonText">Disconnect</p>
+        </div>
       </button>
     </div>
   );

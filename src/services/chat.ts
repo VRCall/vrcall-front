@@ -3,6 +3,7 @@ import axios from "axios";
 export interface Message {
     id: string;
     text: string;
+    senderName: string; 
 }
 
 interface GetMessagesResponse {
@@ -16,8 +17,12 @@ export const getMessages = async (id: string): Promise<Message[]> => {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         });
-        console.log(response);
-        
+
+        // const messagesWithSenderName = await Promise.all(response.data.messages.map(async (message) => {
+        //     const senderInfo = await axios.get(`${import.meta.env.VITE_API_URL}/user/current`);
+        //     return { ...message, senderName: senderInfo.data.user.pseudo };
+        // }));
+
         return response.data.messages;
     } catch (error) {
         console.error("Error getting messages:", error);
@@ -33,9 +38,25 @@ export const sendMessage = async (data: { text: string, friendship_id: string}):
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         });
+
         return response.data;
+
+        // const senderInfo = await axios.get(`${import.meta.env.VITE_API_URL}/user`);
+        // return { ...response.data, senderName: senderInfo.data.user.pseudo };
     } catch (error) {
         console.error("Error sending message:", error);
         throw error;
     }
 };
+
+
+export const getCurrentUser = async () => {
+    const senderInfo = await axios.get(`${import.meta.env.VITE_API_URL}/users/current`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    console.log(senderInfo);
+    
+    return senderInfo.data;
+}

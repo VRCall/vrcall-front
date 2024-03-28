@@ -20,9 +20,7 @@ export default function SimplifedFriendList() {
   return (
     <div>
       <ul style={{ listStyleType: "none" }}>
-        {friendList!.length === 0
-          ? null
-          : friendList!.map((friend, index) => (
+        {friendList && friendList!.map((friend, index) => (
               <li key={index}>
                 <Link to={`/friendship/${friend.friendship_id}`} className="friend">
                   <img src={friend.img} alt={friend.pseudo} />

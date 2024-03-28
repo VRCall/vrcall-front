@@ -73,6 +73,7 @@
   padding: 0;
 
   &:hover {
+    cursor: pointer;
     background-color: rgb(28, 86, 128);
     transition: all 0.3s;
   }

@@ -1,11 +1,10 @@
-import AddFriends from "../components/friends/AddFriends";
-import FriendRequests from "../components/friends/FriendRequests";
+import FriendList from "../components/friendList/FriendList";
 import NavBar from "../components/navBar/NavBar";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
+      <FriendList />
       <AddFriends />
       <FriendRequests />
     </>

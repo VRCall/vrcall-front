@@ -1,7 +1,91 @@
 .navBarBody {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
   align-items: center;
-  min-width: 400px;
+  width: 21%;
+  background-color: #0c3451;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #1d415c;
+  text-decoration: none;
+  font-size: 1em;
+  line-height: 2;
+  color: white;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: rgb(28, 86, 128);
+    transition: all 0.3s;
+  }
+
+  .linkText {
+    margin-left: 10px;
+  }
+
+  .linkIcon {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+  }
+}
+.links:first-child {
+  margin-top: 10px;
+}
+.linksMessages {
+  height: 100%;
+  width: 90%;
+
+  .messages {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.disconnectButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 10px;
+  background-color: #1d415c;
+  text-decoration: none;
+  font-size: 1em;
+  line-height: 2;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(28, 86, 128);
+    transition: all 0.3s;
+  }
+}
+
+.buttonLinkIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+
+  .buttonText {
+    margin-left: 10px;
+  }
 }

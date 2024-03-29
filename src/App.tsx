@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import NavBar from "./components/navBar/NavBar";
 import Requests from "./pages/Requests";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function CustomLayout() {
           <Route path="*" element={<Home />} />
           <Route path="/friendship/:id" element={<Chat />} />
           <Route path="/friendships/requests" element={<Requests />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </div>

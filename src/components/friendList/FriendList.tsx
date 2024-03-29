@@ -19,15 +19,10 @@ export default function FriendList() {
       });
   }, []);
 
-  // const openMessage = (friendship: string) => {
-  //   page("message");
-  //   friendshipId(friendship);
-  // };
-
   return (
     <>
       <h1>Friend List</h1>
-      <input className="search" placeholder="friend" onChange={(e) => setSearch(e.target.value)} />
+      <input className="search" placeholder="friend" onChange={(e) => setSearch(e.target.value)} style={{ color: "rgba(255, 255, 255, 0.87)" }} />
       {friendList!.length === 0 ? (
         <p>No friends to display</p>
       ) : (
@@ -37,7 +32,7 @@ export default function FriendList() {
             .map((friend, index) => (
               <li key={index}>
                 <div className="friend">
-                  <img src={friend.img} alt={friend.pseudo} className="friendImg"/>
+                  <img width={35} src={import.meta.env.VITE_API_URL + friend.img} alt={friend.pseudo} className="friendImg"/>
                   <p className="friendName">{friend.pseudo}</p>
                   <button>
                     <Link className="friendLink" to={`/friendship/${friend.friendship_id}`}>message</Link>

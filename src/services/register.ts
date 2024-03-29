@@ -11,12 +11,21 @@ export interface RegisterData {
 export const registerUser = async (data: RegisterData) => {   
 
     const formData = new FormData();
+    console.log(data);
+    
 
     formData.append("pseudo", data.pseudo);
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
-    //formData.append("profilePicture", data.profilePicture!, data.profilePicture?.name);
+
+    if(data.profilePicture) {
+        formData.append("profilePicture", data.profilePicture!, data.profilePicture?.name);
+    }
+    else {
+        formData.append("profilePicture", new Blob())
+    }
+    
 
     const jsonData = JSON.stringify({
         pseudo: data.pseudo,
@@ -25,10 +34,15 @@ export const registerUser = async (data: RegisterData) => {
         confirmPassword: data.confirmPassword,
     })
 
-    await axios.post(`${import.meta.env.VITE_API_URL}/users/signup`, jsonData, {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
+    // await fetch(`${import.meta.env.VITE_API_URL}/users/signup`, {
+    //     method: "POST",
+    //     body: formData
+    // })
+    // .then((response) => response.json())
+    // .then((result) => {
+    //     console.log(result);
+    // })
+
+    return await axios.post(`${import.meta.env.VITE_API_URL}/users/signup`, formData);
     
 }

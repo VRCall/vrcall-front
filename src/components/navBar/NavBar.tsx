@@ -23,6 +23,12 @@ export default function NavBar() {
             </div>
             <p className="linkText">Friends</p>
           </Link>
+          <Link to={"friendships/requests"} className="links">
+            <div className="linkIcon">
+              <FaUserFriends />
+            </div>
+            <p className="linkText">Friend requests</p>
+          </Link>
 
           <Link to={"/profile"} className="links">
             <div className="linkIcon">

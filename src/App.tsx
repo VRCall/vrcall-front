@@ -6,6 +6,7 @@ import AuthGuard from "./components/guards/AuthGuard";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import NavBar from "./components/navBar/NavBar";
+import Requests from "./pages/Requests";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function CustomLayout() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Home />} />
           <Route path="/friendship/:id" element={<Chat />} />
+          <Route path="/friendships/requests" element={<Requests />} />
         </Routes>
       </div>
     </div>

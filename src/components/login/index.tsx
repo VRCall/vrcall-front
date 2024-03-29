@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LoginData, loginUser } from "../../services/login";
 import "./index.scss";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Index() {
 
@@ -13,9 +13,15 @@ export default function Index() {
         setFormData({...formData, [name]: value});
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        loginUser(formData)
+        const response = await loginUser(formData)
+        
+        if(response === 200) {
+            navigate('/')
+        }
     }
 
     return (

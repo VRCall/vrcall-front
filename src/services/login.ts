@@ -12,14 +12,20 @@ export const loginUser = async (data: LoginData) => {
         password: data.password,
     })
 
+    let r;
+
     await axios.post(`${import.meta.env.VITE_API_URL}/users/login`, jsonData, {
         headers: {
             "Content-Type": "application/json"
         }
     })
     .then((response: AxiosResponse) => {
-        console.log(response);
         localStorage.setItem("token", response.data.token);
+        r = response.status;
     });
+
+    console.log(r);
+    
+    return r;
     
 }

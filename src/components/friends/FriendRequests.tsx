@@ -24,7 +24,7 @@ export default function FriendRequests() {
 
   return (
     <>
-      <h1>Friend Request</h1>
+      <h1>Pending requests</h1>
 
       {friendRequest!.length === 0 ? (
         <p>no requests</p>

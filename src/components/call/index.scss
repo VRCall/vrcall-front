@@ -1,4 +1,10 @@
-.video {
-    transform: rotateY(180deg);
-    padding: 50px;
+.video-container {
+    display: flex;
+
+    .video {
+        transform: rotateY(180deg);
+        padding: 50px;
+        width: 450px;
+        aspect-ratio: 1;
+    }
 }

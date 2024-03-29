@@ -58,11 +58,13 @@ export default function Index({ socket }: CallProps) {
           <h1>Current user id is {peerId}</h1>
           <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
           <button onClick={() => call(remotePeerIdValue)}>Call</button>
-          <div>
-            <video muted ref={currentUserVideoRef} />
-          </div>
-          <div>
-            <video ref={remoteVideoRef} />
+          <div className="video-container">
+            <div>
+              <video className="video" muted ref={currentUserVideoRef} />
+            </div>
+            <div>
+              <video className="video" ref={remoteVideoRef} />
+            </div>
           </div>
         </div>
       );

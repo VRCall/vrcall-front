@@ -5,6 +5,7 @@ import "./App.scss";
 import AuthGuard from "./components/guards/AuthGuard";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
+import NavBar from "./components/navBar/NavBar";
 
 function App() {
   return (

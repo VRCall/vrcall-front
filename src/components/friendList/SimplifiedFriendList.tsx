@@ -21,7 +21,7 @@ export default function SimplifedFriendList() {
   return (
     <div>
       <ul className="sFriendList">
-        {friendList && friendList!.map((friend, index) => (
+        {friendList && friendList.map((friend, index) => (
               <li key={index}>
                 <Link to={`/friendship/${friend.friendship_id}`} className="sFriend">
                   <img width={35} src={import.meta.env.VITE_API_URL + friend.img} alt={friend.pseudo} />

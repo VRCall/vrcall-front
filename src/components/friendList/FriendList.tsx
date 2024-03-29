@@ -32,7 +32,7 @@ export default function FriendList() {
             .map((friend, index) => (
               <li key={index}>
                 <div className="friend">
-                  <img width={35} src={import.meta.env.VITE_API_URL + friend.img} alt={friend.pseudo} className="friendImg"/>
+                  <img width={35} src={friend.img} alt={friend.pseudo} className="friendImg"/>
                   <p className="friendName">{friend.pseudo}</p>
                   <button>
                     <Link className="friendLink" to={`/friendship/${friend.friendship_id}`}>message</Link>

@@ -77,8 +77,7 @@ export default function ChatFriend() {
     };
 
     return (
-        <div className="main">
-            <h1>Chat</h1>
+        <div className="chat">
             <div className="chat-container" ref={chatContainerRef}>
                 {messages && messages.map((message, index) => (
                     <div className="message" key={index}>

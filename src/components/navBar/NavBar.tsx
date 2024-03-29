@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import SimplifedFriendList from "../friendList/SimplifiedFriendList";
 import "./NavBar.scss";
+import { FaUserFriends } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { ImExit } from "react-icons/im";
 
 export default function NavBar() {
- 
   const navigate = useNavigate();
-  
+
   const handleDisconnection = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -13,29 +15,36 @@ export default function NavBar() {
 
   return (
     <div className="navBarBody">
-      <div>
-        <ul style={{ listStyleType: "none" }}>
-          <li>
-            <Link to={""}>Home</Link>
-          </li>
-          <li>
-            <Link to={"/profile"}>
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link to={"/param"}>
-            Settings
-            </Link>
-          </li>
-
-        </ul>
+      <div className="linksMessages">
         <div>
+          <Link to={""} className="links">
+            <div className="linkIcon">
+              <FaUserFriends />
+            </div>
+            <p className="linkText">Friends</p>
+          </Link>
+
+          <Link to={"/profile"} className="links">
+            <div className="linkIcon">
+              <CgProfile />
+            </div>
+            <p className="linkText">Profile</p>
+          </Link>
+        </div>
+        <div className="messages">
           <h2>Messages</h2>
           <SimplifedFriendList />
         </div>
-        <button onClick={() => handleDisconnection()}>Disconnect</button>
       </div>
+      <button
+        className="disconnectButton"
+        onClick={() => handleDisconnection()}
+      >
+        <div className="buttonLinkIcon">
+          <ImExit />
+          <p className="buttonText">Disconnect</p>
+        </div>
+      </button>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function FriendRequests() {
         <p>no requests</p>
       ) : (
         <ul>
-          {friendRequest!.map((friendRequest: FriendRequest, index) => {
+          {friendRequest && friendRequest!.map((friendRequest: FriendRequest, index) => {
             return (
               <li key={index}>
                 <div>

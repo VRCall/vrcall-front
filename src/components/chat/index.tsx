@@ -20,6 +20,8 @@ export default function ChatFriend() {
         getUser();
         console.log("sendMessage");
 
+        socket.emit("join-chat", id)
+
         socket.on("receiveMessage", (data: any) => {
             console.log(data);
             setMessages(prevMessages => [...prevMessages, { text: data.text, id: id!, senderName: data.senderName }]);
@@ -30,7 +32,7 @@ export default function ChatFriend() {
             socket.off("newMessage");
         };
 
-    }, []);
+    }, [id]);
 
     const loadMessages = async () => {
         try {
@@ -60,8 +62,9 @@ export default function ChatFriend() {
                 await sendMessage({ text: newMessage, friendship_id: id! });
                 console.log(currentUser);
 
-                socket.emit("sendMessage", { text: newMessage, senderName: currentUser.pseudo });
+                socket.emit("sendMessage", { text: newMessage, senderName: currentUser.pseudo, roomId: id });
 
+                setMessages(prevMessages => [...prevMessages, { text: newMessage, id: id!, senderName: currentUser.pseudo }]);
                 setNewMessage("");
             } catch (error) {
                 console.error("Error sending message:", error);

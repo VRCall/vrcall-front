@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { RegisterData, registerUser } from "../../services/register";
 import "./index.scss";
 import { FaEnvelope, FaLock, FaRegUser } from "react-icons/fa"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Index() {
 
@@ -20,9 +20,22 @@ export default function Index() {
         }
     }
 
+    const navigate = useNavigate();
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         registerUser(formData)
+        .then((response: any) => {
+            console.log(response);
+            
+            if(response.status === 201) {
+                navigate("/login")
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            
+        })
     }
 
     return (

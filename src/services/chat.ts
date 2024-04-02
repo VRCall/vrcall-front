@@ -14,7 +14,8 @@ export const getMessages = async (id: string): Promise<Message[]> => {
     try {
         const response = await axios.get<GetMessagesResponse>(`${import.meta.env.VITE_API_URL}/chat/messages/${id}`, {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "ngrok-skip-browser-warning": true
             }
         });
 
@@ -35,7 +36,8 @@ export const sendMessage = async (data: { text: string, friendship_id: string}):
         const response = await axios.post<Message>(`${import.meta.env.VITE_API_URL}/chat`, data, {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "ngrok-skip-browser-warning": true
             }
         });
 
@@ -53,7 +55,8 @@ export const sendMessage = async (data: { text: string, friendship_id: string}):
 export const getCurrentUser = async () => {
     const senderInfo = await axios.get(`${import.meta.env.VITE_API_URL}/users/current`, {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "ngrok-skip-browser-warning": true
         }
     });
     console.log(senderInfo);

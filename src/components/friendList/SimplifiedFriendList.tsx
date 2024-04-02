@@ -10,7 +10,7 @@ export default function SimplifedFriendList() {
   );
   useEffect(() => {
     getFriendList()
-      .then((response) => {
+      .then((response) => {        
         setFriendList(response);
       })
       .catch((error) => {

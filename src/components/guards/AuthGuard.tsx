@@ -33,7 +33,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
             if(response.data && (isLoginPage || isRegisterPage)) {
                 navigate("/");
             }
-            else if(!response && !isLoginPage && !isRegisterPage) {
+            else if(!response.data && !isLoginPage && !isRegisterPage) {
                 navigate("/login");
             }
         });

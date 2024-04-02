@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { sendMessage, getMessages, Message, getCurrentUser } from "../../services/chat";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
+import { checkFriendship } from "../../services/checkFriendship"; 
 import "./indexChat.scss";
 
 const socket = io.connect(`${import.meta.env.VITE_API_URL}`);
@@ -11,34 +12,44 @@ export default function ChatFriend() {
     const [currentUser, setCurrentUser] = useState({});
     const [newMessage, setNewMessage] = useState("");
     const [error, setError] = useState("");
-
     const { id } = useParams();
     const chatContainerRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        loadMessages();
-        getUser();
-        console.log("sendMessage");
+        const fetchData = async () => {
+            try {
+                await checkFriendship(id!); 
+                loadMessages(); 
+                getUser();
+                socket.emit("join-chat", id);
+                socket.on("receiveMessage", (data: any) => {
+                    setMessages(prevMessages => [...prevMessages, { text: data.text, id: id!, senderName: data.senderName }]);
+                });
 
-        socket.emit("join-chat", id)
+            } catch (error) {
+                navigate('/') 
+                console.error("Error checking friendship:", error);
+                setError("Error checking friendship");
+            }
+        };
 
-        socket.on("receiveMessage", (data: any) => {
-            console.log(data);
-            setMessages(prevMessages => [...prevMessages, { text: data.text, id: id!, senderName: data.senderName }]);
-            setTimeout(scrollToBottom, 100); 
-        });
+        fetchData();
 
         return () => {
-            socket.off("newMessage");
+            socket.off("receiveMessage");
         };
 
     }, [id]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const loadMessages = async () => {
         try {
             const existingMessages = await getMessages(id!);
             setMessages(existingMessages);
-            console.log(existingMessages);
         } catch (error) {
             console.error("Error loading messages:", error);
             setError("Error loading messages");
@@ -48,7 +59,6 @@ export default function ChatFriend() {
     const getUser = async () => {
         const user = await getCurrentUser()
         setCurrentUser(user.user)
-        console.log(user);
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +70,6 @@ export default function ChatFriend() {
         if (newMessage.trim() !== "") {
             try {
                 await sendMessage({ text: newMessage, friendship_id: id! });
-                console.log(currentUser);
 
                 socket.emit("sendMessage", { text: newMessage, senderName: currentUser.pseudo, roomId: id });
 
@@ -81,6 +90,7 @@ export default function ChatFriend() {
 
     return (
         <div className="chat">
+        
             <div className="chat-container" ref={chatContainerRef}>
                 {messages && messages.map((message, index) => (
                     <div className="message" key={index}>

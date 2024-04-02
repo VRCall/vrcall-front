@@ -1,0 +1,25 @@
+.profileBody {
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  .basicInfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+
+    div {
+      margin-left: 100px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

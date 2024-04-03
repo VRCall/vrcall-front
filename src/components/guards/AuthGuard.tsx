@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
 
 interface AuthGuardProps {
@@ -10,6 +10,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const checkAuth = () => {
         // Check if current location is login or signup
@@ -20,6 +21,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
         if(!hasToken && !isLoginPage && !isRegisterPage) {
             navigate("/login");
+            setIsLoading(false)
         }
 
         const authToken = localStorage.getItem("token") || "";
@@ -36,6 +38,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
             else if(!response.data && !isLoginPage && !isRegisterPage) {
                 navigate("/login");
             }
+            setIsLoading(false)
         });
     }
 
@@ -43,6 +46,17 @@ export default function AuthGuard({ children }: AuthGuardProps) {
         checkAuth();
     }, [navigate])
 
-    return ( <>{ children }</> )
+    return ( 
+    
+        <>
+        {
+            isLoading ?
+            <p>Loading...</p>
+            :
+            children
+        }
+        </>
+    
+    )
 
 }

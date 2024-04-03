@@ -5,7 +5,11 @@ import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship"; 
 import "./indexChat.scss";
 
-const socket = io.connect(`${import.meta.env.VITE_API_URL}`);
+const socket = io(`${import.meta.env.VITE_API_URL}`, {
+    extraHeaders: {
+        "ngrok-skip-browser-warning": "true"
+    }
+});
 
 export default function ChatFriend() {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -58,7 +62,8 @@ export default function ChatFriend() {
 
     const getUser = async () => {
         const user = await getCurrentUser()
-        setCurrentUser(user.user)
+        setCurrentUser(user)
+        socket.emit("join-chat", id, user.id)
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,11 +72,12 @@ export default function ChatFriend() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
         if (newMessage.trim() !== "") {
             try {
                 await sendMessage({ text: newMessage, friendship_id: id! });
 
-                socket.emit("sendMessage", { text: newMessage, senderName: currentUser.pseudo, roomId: id });
+                socket.emit("sendMessage", { text: newMessage, senderName: currentUser.pseudo, chatId: id });
 
                 setMessages(prevMessages => [...prevMessages, { text: newMessage, id: id!, senderName: currentUser.pseudo }]);
                 setNewMessage("");

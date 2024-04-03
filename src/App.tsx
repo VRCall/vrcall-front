@@ -8,6 +8,7 @@ import Chat from "./pages/Chat";
 import NavBar from "./components/navBar/NavBar";
 import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
+import Call from './pages/Call'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="*" element={<CustomLayout />} />
+          <Route path="call/:roomId" element={<Call />} />
         </Routes>
       </AuthGuard>
     </BrowserRouter>

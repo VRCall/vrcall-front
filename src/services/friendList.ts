@@ -14,6 +14,7 @@ export const getFriendList = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true
         },
       }
     );

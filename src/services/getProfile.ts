@@ -18,6 +18,7 @@ export const getProfile = async () => {
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true
         },
       }
     );

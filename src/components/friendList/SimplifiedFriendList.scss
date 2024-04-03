@@ -14,11 +14,17 @@
     border-radius: 3px;
     font-size: 1em;
     margin-bottom: 10px;
-    
+    height: 5vh;
+
     &:hover {
       background-color: rgb(28, 86, 128);
       transition: all 0.3s;
     }
+  }
+
+  .petitePP {
+    width: 35px;
+    margin-right: 1vh;
   }
 
   .sFriend {
@@ -29,5 +35,6 @@
     width: 100%;
     justify-content: space-around;
     padding: 5px;
+    justify-content: flex-start;
   }
 }

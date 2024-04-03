@@ -21,14 +21,23 @@ export default function SimplifedFriendList() {
   return (
     <div>
       <ul className="sFriendList">
-        {friendList && friendList.map((friend, index) => (
-              <li key={index}>
-                <Link to={`/friendship/${friend.friendship_id}`} className="sFriend">
-                  <img width={35} src={friend.img} alt={friend.pseudo} />
-                  <p>{friend.pseudo}</p>
-                </Link>
-              </li>
-            ))}
+        {friendList &&
+          friendList.map((friend, index) => (
+            <li key={index}>
+              <Link
+                to={`/friendship/${friend.friendship_id}`}
+                className="sFriend"
+              >
+                <img
+                  className="petitePP"
+                  src="../../../public/default.png"
+                  // src={friend.img}
+                  alt={friend.pseudo}
+                />
+                <p>{friend.pseudo}</p>
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   );

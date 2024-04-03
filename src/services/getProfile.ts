@@ -9,12 +9,12 @@ export interface Profile {
   modified_at: Date;
 }
 
-export const getProfile = async () => {
+export const getProfile = async (friendshipId: string) => {
   try {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/users/profile`,
+      `${import.meta.env.VITE_API_URL}/users/profile/${friendshipId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -59,7 +59,6 @@ export const getCurrentUser = async () => {
             "ngrok-skip-browser-warning": true
         }
     });
-    console.log(senderInfo);
     
     return senderInfo.data;
 }

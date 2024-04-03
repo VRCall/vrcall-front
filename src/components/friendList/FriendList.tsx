@@ -23,7 +23,7 @@ export default function FriendList() {
     <>
       <h1>Friend List</h1>
       <input className="search" placeholder="friend" onChange={(e) => setSearch(e.target.value)} style={{ color: "rgba(255, 255, 255, 0.87)" }} />
-      {friendList!.length === 0 ? (
+      {friendList && friendList!.length === 0 ? (
         <p>No friends to display</p>
       ) : (
         <ul className="friendUl">

@@ -1,10 +1,35 @@
-.video-container {
-    display: flex;
+* {
+    overflow: hidden;
+}
 
-    .video {
-        transform: rotateY(180deg);
-        padding: 50px;
-        width: 450px;
-        aspect-ratio: 1;
+.video {
+    // aspect-ratio: 1;
+    transform: rotateY(180deg);
+}
+
+.self {
+    border-radius: 5px;
+    border: 1px solid #00e9f3;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 450px;
+    z-index: 1;
+}
+
+.remote {
+    width: 100vw;
+    height: 100vh;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX("-50%");
+
+    button {
+
     }
 }
+

@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
-import { getProfile, Profile } from "../../services/getProfile";
+import { getProfileByFriendshipId, Profile } from "../../services/getProfile";
 import { FiPhoneCall } from "react-icons/fi";
 import { PiVideoCameraBold } from "react-icons/pi";
 import { BsBadgeVr } from "react-icons/bs";
@@ -53,7 +53,7 @@ export default function ChatFriend() {
     fetchData();
 
     const fetchProfile = async () => {
-      await getProfile(id!).then((data) => {
+      await getProfileByFriendshipId(id!).then((data) => {
         setSender(data);
       });
     };

@@ -23,7 +23,6 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-      <div className="trait"></div>
       <div className="parameters">
         <Link to={""} className="links">
           <div className="linkIcon">

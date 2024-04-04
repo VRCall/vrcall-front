@@ -9,16 +9,44 @@ export interface Profile {
   modified_at: Date;
 }
 
-export const getProfile = async (friendshipId: string) => {
+export const getProfile = async () => {
   try {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/users/profile/${friendshipId}`,
+      `${import.meta.env.VITE_API_URL}/users/profile/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": true
+          "ngrok-skip-browser-warning": true,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      return response.data as Profile;
+    } else {
+      console.error("Error getting profile:", response.data.message);
+      return undefined;
+    }
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+};
+
+export const getProfileByFriendshipId = async (friendshipId: string) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(
+      `${
+        import.meta.env.VITE_API_URL
+      }/users/profile-by-friendship-id/${friendshipId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true,
         },
       }
     );

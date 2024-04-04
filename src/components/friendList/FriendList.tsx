@@ -35,7 +35,9 @@ export default function FriendList() {
         <ul className="friendUl">
           {friendList &&
             friendList
-              .filter((friend) => friend.pseudo.toLowerCase().includes(search))
+              .filter((friend) =>
+                friend.pseudo.toLowerCase().includes(search.toLowerCase())
+              )
               .map((friend, index) => (
                 <li key={index} className="friendLI">
                   <div className="friend">

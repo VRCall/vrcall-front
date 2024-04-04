@@ -10,6 +10,9 @@ import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
 import { getProfile, Profile } from "../../services/getProfile";
+import { FiPhoneCall } from "react-icons/fi";
+import { PiVideoCameraBold } from "react-icons/pi";
+import { BsBadgeVr } from "react-icons/bs";
 
 const socket = io.connect(`${import.meta.env.VITE_API_URL}`);
 
@@ -113,6 +116,22 @@ export default function ChatFriend() {
 
   return (
     <div className="chat">
+      <div className="headerChat">
+        <div className="headerG">
+          <h1>{sender?.pseudo}</h1>
+        </div>
+        <div className="headerD">
+          <button className="btncall">
+            <FiPhoneCall />
+          </button>
+          <button className="btnvisio">
+            <PiVideoCameraBold />
+          </button>
+          <button className="btn3D">
+            <BsBadgeVr />
+          </button>
+        </div>
+      </div>
       <div className="chat-container" ref={chatContainerRef}>
         {messages &&
           messages.map((message, index) => (

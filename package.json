@@ -38,7 +38,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "prettier --write . && git add -A ."
+			"pre-commit": "echo \"Husky pre commit\""
 		}
 	}
 }

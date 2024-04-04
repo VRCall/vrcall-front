@@ -9,6 +9,7 @@ import NavBar from "./components/navBar/NavBar";
 import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
 import Call from './pages/Call'
+import Three from "./pages/Three";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="*" element={<CustomLayout />} />
           <Route path="call/:roomId" element={<Call />} />
+          <Route path="three" element={<Three />} />
         </Routes>
       </AuthGuard>
     </BrowserRouter>

@@ -3,6 +3,7 @@ import { sendMessage, getMessages, Message, getCurrentUser } from "../../service
 import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship"; 
+import Notification from "../notification/Notification";
 import "./indexChat.scss";
 
 const socket = io(`${import.meta.env.VITE_API_URL}`, {
@@ -11,11 +12,12 @@ const socket = io(`${import.meta.env.VITE_API_URL}`, {
     }
 });
 
-export default function ChatFriend() {
+const ChatFriend = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [currentUser, setCurrentUser] = useState({});
     const [newMessage, setNewMessage] = useState("");
     const [error, setError] = useState("");
+    const [notifications, setNotifications] = useState<string[]>([]); 
     const { id } = useParams();
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
@@ -29,6 +31,12 @@ export default function ChatFriend() {
                 socket.emit("join-chat", id);
                 socket.on("receiveMessage", (data: any) => {
                     setMessages(prevMessages => [...prevMessages, { text: data.text, id: id!, senderName: data.senderName }]);
+                    setNotifications(prevNotifications => [...prevNotifications, `Nouveau message de ${data.senderName}`]); 
+                });
+
+                socket.on("receiveNotification", (notification) => {
+                    
+                    console.log("Notification reçue:", notification);
                 });
 
             } catch (error) {
@@ -96,7 +104,9 @@ export default function ChatFriend() {
 
     return (
         <div className="chat">
-        
+            {notifications && notifications.map((notification, index) => (
+                <Notification key={index} text={notification} />
+            ))}
             <div className="chat-container" ref={chatContainerRef}>
                 {messages && messages.map((message, index) => (
                     <div className="message" key={index}>
@@ -117,3 +127,5 @@ export default function ChatFriend() {
         </div>
     );
 }
+
+export default ChatFriend;

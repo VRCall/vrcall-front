@@ -46,8 +46,7 @@ export default function NavBar() {
 			</div>
 			<button
 				className="disconnectButton"
-				onClick={() => handleDisconnection()}
-			>
+				onClick={() => handleDisconnection()}>
 				<div className="buttonLinkIcon">
 					<ImExit />
 					<p className="buttonText">Disconnect</p>

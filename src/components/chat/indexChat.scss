@@ -41,6 +41,8 @@
 			border-radius: 4px;
 			height: 45px;
 			background-color: #1d415c;
+			color: whitesmoke;
+			cursor: pointer;
 
 			&:hover {
 				background-color: rgb(28, 86, 128);
@@ -93,12 +95,14 @@
 		display: flex;
 		width: 94%;
 
-		input[type="text"] {
+		input[type="text"],
+		input[type="text"]:focus-visible {
 			flex-grow: 1;
 			padding: 10px;
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			margin-right: 10px;
+			outline: none;
 		}
 
 		button {

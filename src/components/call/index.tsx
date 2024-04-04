@@ -21,7 +21,6 @@ export default function Index({ socket }: CallProps) {
 
 	const getUser = async (id: string) => {
 		const user = await getCurrentUser();
-		console.log(user);
 		socket.emit("join-room", roomId, id);
 	};
 
@@ -60,7 +59,6 @@ export default function Index({ socket }: CallProps) {
 			.getUserMedia({ video: true, audio: true })
 			.then((stream: MediaStream) => {
 				setLocalStream(stream);
-				console.log(localStream);
 				currentUserVideoRef.current.srcObject = stream;
 				currentUserVideoRef.current.play();
 
@@ -74,8 +72,6 @@ export default function Index({ socket }: CallProps) {
 	};
 
 	const toggleCamera = () => {
-		console.log(localStream);
-
 		let videoTrack = localStream
 			.getTracks()
 			.find((track) => track.kind === "video");

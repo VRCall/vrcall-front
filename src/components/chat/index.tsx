@@ -30,7 +30,6 @@ export default function ChatFriend() {
 	const navigate = useNavigate();
 	const [sender, setSender] = useState<Profile>();
 
-	console.log(messages);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -128,6 +127,22 @@ export default function ChatFriend() {
 		}
 	};
 
+	const startCall = (type: string) => {
+		switch (type) {
+			case "video":
+				navigate(`/call/${id}`);
+				break;
+			case "audio":
+				navigate(`/call/${id}`);
+				break;
+			case "three":
+				navigate(`/three`);
+				break;
+			default:
+				break;
+		}
+	};
+
 	return (
 		<div className="chat">
 			<div className="headerChat">
@@ -135,13 +150,19 @@ export default function ChatFriend() {
 					<h1>{sender?.pseudo}</h1>
 				</div>
 				<div className="headerD">
-					<button className="btncall">
+					<button
+						className="btncall"
+						onClick={() => startCall("audio")}>
 						<FiPhoneCall />
 					</button>
-					<button className="btnvisio">
+					<button
+						className="btnvisio"
+						onClick={() => startCall("video")}>
 						<PiVideoCameraBold />
 					</button>
-					<button className="btn3D">
+					<button
+						className="btn3D"
+						onClick={() => startCall("three")}>
 						<BsBadgeVr />
 					</button>
 				</div>
@@ -163,8 +184,7 @@ export default function ChatFriend() {
 											style={{
 												color: "rgb(215, 183, 2)",
 												wordBreak: "break-word"
-											}}
-										>
+											}}>
 											{message.text}
 										</span>
 									</div>

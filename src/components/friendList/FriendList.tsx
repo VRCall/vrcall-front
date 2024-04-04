@@ -29,7 +29,7 @@ export default function FriendList() {
         onChange={(e) => setSearch(e.target.value)}
         style={{ color: "rgba(255, 255, 255, 0.87)" }}
       />
-      {friendList!.length === 0 ? (
+      {friendList && friendList!.length === 0 ? (
         <p>No friends to display</p>
       ) : (
         <ul className="friendUl">

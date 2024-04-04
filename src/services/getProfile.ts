@@ -40,9 +40,7 @@ export const getProfileByFriendshipId = async (friendshipId: string) => {
     const token = localStorage.getItem("token");
 
     const response = await axios.get(
-      `${
-        import.meta.env.VITE_API_URL
-      }/users/profile-by-friendship-id/${friendshipId}`,
+      `${import.meta.env.VITE_API_URL}/users/profile/${friendshipId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

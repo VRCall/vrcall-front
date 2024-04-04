@@ -1,25 +1,52 @@
+.container {
+	width: 100%;
+}
+
 .profileBody {
+	display: flex;
+	flex-direction: column;
+	.basicInfo {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+	.profileValid {
+		background-color: #0c3451;
+		content-visibility: hidden;
+	}
+	.profileDates {
+		background-color: #0c3451;
+		width: 70%;
+		margin: 2em auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: flex-start;
+		margin-bottom: 20px;
+		padding: 1em;
+		border-radius: 4px;
+	}
+
+	.infoPerso {
+		display: flex;
+		flex-direction: column;
+		width: 30%;
+	}
+
+	.infoPersoChild {
+		background-color: #0c3451;
+		margin: 0.5vh;
+		border-radius: 5px;
+		padding: 1vh;
+	}
+
 	h3 {
 		margin: 0;
 	}
 
 	p {
 		margin: 0;
-		margin-bottom: 20px;
-	}
-
-	.basicInfo {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		margin-bottom: 20px;
-
-		div {
-			margin-left: 100px;
-		}
-
-		p {
-			margin: 0;
-		}
 	}
 }

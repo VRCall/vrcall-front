@@ -9,6 +9,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
+import { getProfileByFriendshipId, Profile } from "../../services/getProfile";
+import { FiPhoneCall } from "react-icons/fi";
+import { PiVideoCameraBold } from "react-icons/pi";
+import { BsBadgeVr } from "react-icons/bs";
 
 const socket = io(`${import.meta.env.VITE_API_URL}`, {
 	extraHeaders: {
@@ -24,12 +28,14 @@ export default function ChatFriend() {
 	const { id } = useParams();
 	const chatContainerRef = useRef<HTMLDivElement>(null);
 	const navigate = useNavigate();
+	const [sender, setSender] = useState<Profile>();
 
+	console.log(messages);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				await checkFriendship(id!);
-				loadMessages();
+				await loadMessages();
 				getUser();
 				socket.emit("join-chat", id);
 				socket.on("receiveMessage", (data: any) => {
@@ -48,8 +54,14 @@ export default function ChatFriend() {
 				setError("Error checking friendship");
 			}
 		};
-
 		fetchData();
+
+		const fetchProfile = async () => {
+			await getProfileByFriendshipId(id!).then((data) => {
+				setSender(data);
+			});
+		};
+		fetchProfile();
 
 		return () => {
 			socket.off("receiveMessage");
@@ -118,23 +130,59 @@ export default function ChatFriend() {
 
 	return (
 		<div className="chat">
-			<div className="chat-container" ref={chatContainerRef}>
-				{messages &&
-					messages.map((message, index) => (
-						<div className="message" key={index}>
-							{message.senderName} : {message.text}
-						</div>
-					))}
+			<div className="headerChat">
+				<div className="headerG">
+					<h1>{sender?.pseudo}</h1>
+				</div>
+				<div className="headerD">
+					<button className="btncall">
+						<FiPhoneCall />
+					</button>
+					<button className="btnvisio">
+						<PiVideoCameraBold />
+					</button>
+					<button className="btn3D">
+						<BsBadgeVr />
+					</button>
+				</div>
 			</div>
-			<form className="message-input" onSubmit={handleSubmit}>
-				<input
-					type="text"
-					value={newMessage}
-					onChange={handleInputChange}
-					placeholder="Type your message..."
-				/>
-				<button type="submit">Send</button>
-			</form>
+			<div className="chat-input">
+				<div className="chat-container" ref={chatContainerRef}>
+					{messages &&
+						messages.map((message, index) => (
+							<>
+								<div className="message" key={index}>
+									<img
+										className="petitePP"
+										src="/default.png"
+										// src={friend.img}
+									/>
+									<div className="container">
+										<b>{message.senderName}</b>
+										<span
+											style={{
+												color: "rgb(215, 183, 2)",
+												wordBreak: "break-word"
+											}}
+										>
+											{message.text}
+										</span>
+									</div>
+								</div>
+							</>
+						))}
+				</div>
+
+				<form className="message-input" onSubmit={handleSubmit}>
+					<input
+						type="text"
+						value={newMessage}
+						onChange={handleInputChange}
+						placeholder="Type your message..."
+					/>
+					<button type="submit">Send</button>
+				</form>
+			</div>
 			{error && <div className="error">{error}</div>}
 		</div>
 	);

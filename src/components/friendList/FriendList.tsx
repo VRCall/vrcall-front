@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FriendListData, getFriendList } from "../../services/friendList";
 import "./FriendList.scss";
 import { Link } from "react-router-dom";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 export default function FriendList() {
 	const [friendList, setFriendList] = useState<FriendListData[] | undefined>(
@@ -35,16 +36,19 @@ export default function FriendList() {
 					{friendList &&
 						friendList
 							.filter((friend) =>
-								friend.pseudo.toLowerCase().includes(search)
+								friend.pseudo
+									.toLowerCase()
+									.includes(search.toLowerCase())
 							)
 							.map((friend, index) => (
-								<li key={index}>
+								<li key={index} className="friendLI">
 									<div className="friend">
 										<img
+											className="petitePP"
 											width={35}
-											src={friend.img}
+											src="/default.png"
+											// src={friend.img}
 											alt={friend.pseudo}
-											className="friendImg"
 										/>
 										<p className="friendName">
 											{friend.pseudo}
@@ -54,7 +58,7 @@ export default function FriendList() {
 												className="friendLink"
 												to={`/friendship/${friend.friendship_id}`}
 											>
-												message
+												<HiOutlineDotsVertical />
 											</Link>
 										</button>
 									</div>

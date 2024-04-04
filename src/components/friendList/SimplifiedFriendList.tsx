@@ -29,8 +29,9 @@ export default function SimplifedFriendList() {
 								className="sFriend"
 							>
 								<img
-									width={35}
-									src={friend.img}
+									className="petitePP"
+									src="/default.png"
+									// src={friend.img}
 									alt={friend.pseudo}
 								/>
 								<p>{friend.pseudo}</p>

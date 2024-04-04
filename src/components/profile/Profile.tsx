@@ -30,7 +30,7 @@ export default function Index() {
         <div className="profileBody">
           <div className="basicInfo">
             <img
-              src="../../../public/default.png"
+              src="/default.png"
               //src={profile.img}
               style={{ width: "10vw", margin: "2vh" }}
             />

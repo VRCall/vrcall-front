@@ -30,7 +30,7 @@ export default function SimplifedFriendList() {
               >
                 <img
                   className="petitePP"
-                  src="../../../public/default.png"
+                  src="/default.png"
                   // src={friend.img}
                   alt={friend.pseudo}
                 />

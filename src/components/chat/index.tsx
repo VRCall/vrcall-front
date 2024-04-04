@@ -145,14 +145,14 @@ export default function ChatFriend() {
               <div className="message" key={index}>
                 <img
                   className="petitePP"
-                  src="../../../public/default.png"
+                  src="/default.png"
                   // src={friend.img}
                 />
                 <div className="container">
                   <b>{message.senderName}</b>
                   <span
                     style={{
-                      color: "grey",
+                      color: "rgb(215, 183, 2)",
                       wordBreak: "break-word",
                     }}
                   >

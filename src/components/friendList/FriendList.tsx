@@ -44,7 +44,7 @@ export default function FriendList() {
                     <img
                       className="petitePP"
                       width={35}
-                      src="../../../public/default.png"
+                      src="/default.png"
                       // src={friend.img}
                       alt={friend.pseudo}
                     />

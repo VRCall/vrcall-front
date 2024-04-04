@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export interface RegisterData {
 	pseudo: string;
@@ -26,8 +26,13 @@ export const registerUser = async (data: RegisterData) => {
 		formData.append("profilePicture", new Blob());
 	}
 
-	return await axios.post(
-		`${import.meta.env.VITE_API_URL}/users/signup`,
-		formData
-	);
+	let result;
+
+	await axios
+		.post(`${import.meta.env.VITE_API_URL}/users/signup`, formData)
+		.then((response: AxiosResponse) => {
+			result = response.status;
+		});
+
+	return result;
 };

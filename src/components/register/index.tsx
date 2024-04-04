@@ -30,7 +30,7 @@ export default function Index() {
 		event.preventDefault();
 		registerUser(formData)
 			.then((response: any) => {
-				if (response.status === 201) {
+				if (response === 201) {
 					navigate("/login");
 				}
 			})

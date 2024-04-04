@@ -138,41 +138,43 @@ export default function ChatFriend() {
           </button>
         </div>
       </div>
-      <div className="chat-container" ref={chatContainerRef}>
-        {messages &&
-          messages.map((message, index) => (
-            <>
-              <div className="message" key={index}>
-                <img
-                  className="petitePP"
-                  src="/default.png"
-                  // src={friend.img}
-                />
-                <div className="container">
-                  <b>{message.senderName}</b>
-                  <span
-                    style={{
-                      color: "rgb(215, 183, 2)",
-                      wordBreak: "break-word",
-                    }}
-                  >
-                    {message.text}
-                  </span>
+      <div className="chat-input">
+        <div className="chat-container" ref={chatContainerRef}>
+          {messages &&
+            messages.map((message, index) => (
+              <>
+                <div className="message" key={index}>
+                  <img
+                    className="petitePP"
+                    src="/default.png"
+                    // src={friend.img}
+                  />
+                  <div className="container">
+                    <b>{message.senderName}</b>
+                    <span
+                      style={{
+                        color: "rgb(215, 183, 2)",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {message.text}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </>
-          ))}
-      </div>
+              </>
+            ))}
+        </div>
 
-      <form className="message-input" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={handleInputChange}
-          placeholder="Type your message..."
-        />
-        <button type="submit">Send</button>
-      </form>
+        <form className="message-input" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={newMessage}
+            onChange={handleInputChange}
+            placeholder="Type your message..."
+          />
+          <button type="submit">Send</button>
+        </form>
+      </div>
       {error && <div className="error">{error}</div>}
     </div>
   );

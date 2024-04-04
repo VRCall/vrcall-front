@@ -4,14 +4,14 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 92vh;
+  height: 100%;
   background-color: rgb(141, 141, 141);
 
   .headerChat {
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 45%;
+    height: 11.5%;
     background-color: #0c3451;
 
     .headerG {
@@ -49,10 +49,16 @@
     }
   }
 
-  .chat-container {
-    margin: auto;
-    width: 98%;
+  .chat-input {
+    width: 100%;
+    height: 87.5%;
     margin-top: 10px;
+    overflow-y: auto;
+  }
+
+  .chat-container {
+    width: 100%;
+    height: 90%;
     overflow-y: auto;
 
     .message {
@@ -83,14 +89,9 @@
   }
 
   .message-input {
-    position: fixed;
-    bottom: 20px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-    margin-top: 20px;
+    width: 94%;
 
     input[type="text"] {
       flex-grow: 1;

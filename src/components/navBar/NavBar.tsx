@@ -16,31 +16,33 @@ export default function NavBar() {
   return (
     <div className="navBarBody">
       <div className="linksMessages">
-        <div>
-          <Link to={""} className="links">
-            <div className="linkIcon">
-              <FaUserFriends />
-            </div>
-            <p className="linkText">Friends</p>
-          </Link>
-          <Link to={"friendships/requests"} className="links">
-            <div className="linkIcon">
-              <FaUserFriends />
-            </div>
-            <p className="linkText">Friend requests</p>
-          </Link>
-
-          <Link to={"/profile"} className="links">
-            <div className="linkIcon">
-              <CgProfile />
-            </div>
-            <p className="linkText">Profile</p>
-          </Link>
-        </div>
         <div className="messages">
           <h2>Messages</h2>
-          <SimplifedFriendList />
+          <div className="listFriends">
+            <SimplifedFriendList />
+          </div>
         </div>
+      </div>
+      <div className="parameters">
+        <Link to={""} className="links">
+          <div className="linkIcon">
+            <FaUserFriends />
+          </div>
+          <p className="linkText">Friends</p>
+        </Link>
+        <Link to={"friendships/requests"} className="links">
+          <div className="linkIcon">
+            <FaUserFriends />
+          </div>
+          <p className="linkText">Friend requests</p>
+        </Link>
+
+        <Link to={"/profile"} className="links">
+          <div className="linkIcon">
+            <CgProfile />
+          </div>
+          <p className="linkText">Profile</p>
+        </Link>
       </div>
       <button
         className="disconnectButton"

@@ -1,13 +1,10 @@
 .navBarBody {
   display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
   flex-direction: column;
   height: 100vh;
   justify-content: space-between;
   align-items: center;
-  width: 21%;
+  width: 20%;
   background-color: #0c3451;
 }
 
@@ -16,7 +13,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: 100%;
+  height: 5vh;
   width: 100%;
   margin-bottom: 10px;
   background-color: #1d415c;
@@ -45,15 +42,26 @@
   margin-top: 10px;
 }
 .linksMessages {
-  height: 100%;
+  height: 69%;
   width: 90%;
 
   .messages {
-    height: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+}
+
+.listFriends {
+  width: 100%;
+  height: 82%;
+}
+
+.parameters {
+  margin: auto;
+  width: 90%;
+  border-top: 2px solid rgb(215, 183, 2);
 }
 
 .disconnectButton {
@@ -62,12 +70,12 @@
   justify-content: flex-start;
   align-items: center;
   width: 90%;
+  color: red;
   margin-bottom: 10px;
   background-color: #1d415c;
   text-decoration: none;
   font-size: 1em;
   line-height: 2;
-  color: white;
   border-radius: 3px;
   border: none;
   padding: 0;

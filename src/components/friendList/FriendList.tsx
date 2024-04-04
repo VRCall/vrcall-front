@@ -42,25 +42,29 @@ export default function FriendList() {
 							)
 							.map((friend, index) => (
 								<li key={index} className="friendLI">
-									<div className="friend">
-										<img
-											className="petitePP"
-											width={35}
-											src="/default.png"
-											// src={friend.img}
-											alt={friend.pseudo}
-										/>
-										<p className="friendName">
-											{friend.pseudo}
-										</p>
-										<button>
-											<Link
-												className="friendLink"
-												to={`/friendship/${friend.friendship_id}`}>
-												<HiOutlineDotsVertical />
-											</Link>
-										</button>
-									</div>
+									<Link
+										className="friendLink"
+										to={`/friendship/${friend.friendship_id}`}>
+										<div className="friend">
+											<img
+												className="petitePP"
+												width={35}
+												src="/default.png"
+												// src={friend.img}
+												alt={friend.pseudo}
+											/>
+											<p className="friendName">
+												{friend.pseudo}
+											</p>
+											<button className="buttonList">
+												<Link
+													className="friendLink"
+													to={``}>
+													<HiOutlineDotsVertical />
+												</Link>
+											</button>
+										</div>
+									</Link>
 								</li>
 							))}
 				</ul>

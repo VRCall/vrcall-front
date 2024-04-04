@@ -1,63 +1,62 @@
 .chat {
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-    .chat-container {
-        margin: auto;
-        width: 100%;
-        margin-top: 20px;
-        max-height: 700px; 
-        overflow-y: auto; 
+	.chat-container {
+		margin: auto;
+		width: 100%;
+		margin-top: 20px;
+		max-height: 700px;
+		overflow-y: auto;
 
-        .message {
-            background-color: #f0f0f0;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            color: #000000;
-            overflow-wrap: break-word;
-        }
-    }
+		.message {
+			background-color: #f0f0f0;
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			color: #000000;
+			overflow-wrap: break-word;
+		}
+	}
 
-    .message-input {
-        position: fixed; 
-        bottom: 20px; 
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 70%;
-        margin-top: 20px;
+	.message-input {
+		position: fixed;
+		bottom: 20px;
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 70%;
+		margin-top: 20px;
 
-        input[type="text"] {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
+		input[type="text"] {
+			flex-grow: 1;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			margin-right: 10px;
+		}
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #367fff;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+		button {
+			padding: 10px 20px;
+			border: none;
+			background-color: #367fff;
+			color: white;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
 
-            &:hover {
-                background-color: #2272FF;
-            }
-        }
-    }
+			&:hover {
+				background-color: #2272ff;
+			}
+		}
+	}
 
-    .error {
-        color: red;
-        margin-top: 10px;
-    }
+	.error {
+		color: red;
+		margin-top: 10px;
+	}
 }

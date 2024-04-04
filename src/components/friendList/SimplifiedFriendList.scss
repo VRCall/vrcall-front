@@ -1,33 +1,33 @@
 .sFriendList {
-  list-style-type: none;
-  overflow: scroll;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-  width: 100%;
+	list-style-type: none;
+	overflow: scroll;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	flex-direction: column;
+	width: 100%;
 
-  li {
-    display: flex;
-    align-items: center;
-    background-color: #1d415c;
-    border-radius: 3px;
-    font-size: 1em;
-    margin-bottom: 10px;
-    
-    &:hover {
-      background-color: rgb(28, 86, 128);
-      transition: all 0.3s;
-    }
-  }
+	li {
+		display: flex;
+		align-items: center;
+		background-color: #1d415c;
+		border-radius: 3px;
+		font-size: 1em;
+		margin-bottom: 10px;
 
-  .sFriend {
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-around;
-    padding: 5px;
-  }
+		&:hover {
+			background-color: rgb(28, 86, 128);
+			transition: all 0.3s;
+		}
+	}
+
+	.sFriend {
+		text-decoration: none;
+		color: white;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-around;
+		padding: 5px;
+	}
 }

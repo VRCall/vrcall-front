@@ -4,44 +4,64 @@ import "./FriendList.scss";
 import { Link } from "react-router-dom";
 
 export default function FriendList() {
-  const [friendList, setFriendList] = useState<FriendListData[] | undefined>(
-    []
-  );
-  const [search, setSearch] = useState("");
+	const [friendList, setFriendList] = useState<FriendListData[] | undefined>(
+		[]
+	);
+	const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    getFriendList()
-      .then((response) => {
-        setFriendList(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+	useEffect(() => {
+		getFriendList()
+			.then((response) => {
+				setFriendList(response);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}, []);
 
-  return (
-    <>
-      <h1>Friend List</h1>
-      <input className="search" placeholder="friend" onChange={(e) => setSearch(e.target.value)} style={{ color: "rgba(255, 255, 255, 0.87)" }} />
-      {friendList && friendList!.length === 0 ? (
-        <p>No friends to display</p>
-      ) : (
-        <ul className="friendUl">
-          {friendList && friendList
-            .filter((friend) => friend.pseudo.toLowerCase().includes(search))
-            .map((friend, index) => (
-              <li key={index}>
-                <div className="friend">
-                  <img width={35} src={friend.img} alt={friend.pseudo} className="friendImg"/>
-                  <p className="friendName">{friend.pseudo}</p>
-                  <button>
-                    <Link className="friendLink" to={`/friendship/${friend.friendship_id}`}>message</Link>
-                  </button>
-                </div>
-              </li>
-            ))}
-        </ul>
-      )}
-    </>
-  );
+	return (
+		<>
+			<h1>Friend List</h1>
+			<input
+				className="search"
+				placeholder="friend"
+				onChange={(e) => setSearch(e.target.value)}
+				style={{ color: "rgba(255, 255, 255, 0.87)" }}
+			/>
+			{friendList && friendList!.length === 0 ? (
+				<p>No friends to display</p>
+			) : (
+				<ul className="friendUl">
+					{friendList &&
+						friendList
+							.filter((friend) =>
+								friend.pseudo.toLowerCase().includes(search)
+							)
+							.map((friend, index) => (
+								<li key={index}>
+									<div className="friend">
+										<img
+											width={35}
+											src={friend.img}
+											alt={friend.pseudo}
+											className="friendImg"
+										/>
+										<p className="friendName">
+											{friend.pseudo}
+										</p>
+										<button>
+											<Link
+												className="friendLink"
+												to={`/friendship/${friend.friendship_id}`}
+											>
+												message
+											</Link>
+										</button>
+									</div>
+								</li>
+							))}
+				</ul>
+			)}
+		</>
+	);
 }

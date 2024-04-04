@@ -30,8 +30,6 @@ export default function Index() {
 		event.preventDefault();
 		registerUser(formData)
 			.then((response: any) => {
-				console.log(response);
-
 				if (response.status === 201) {
 					navigate("/login");
 				}
@@ -56,8 +54,7 @@ export default function Index() {
 							id="pseudo"
 							name="pseudo"
 							value={formData.pseudo}
-							onChange={handleInputChange}
-						></input>
+							onChange={handleInputChange}></input>
 					</div>
 					<div className="textual-input-div">
 						<FaEnvelope />

@@ -3,7 +3,6 @@ import axios from "axios";
 export const addFriend = async (friendName: string) => {
 	try {
 		const authToken = localStorage.getItem("token");
-		console.log(`${import.meta.env.VITE_API_URL}/friendships`);
 
 		const response = await axios.post(
 			`${import.meta.env.VITE_API_URL}/friendships`,

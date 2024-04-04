@@ -56,8 +56,7 @@ export default function FriendList() {
 										<button>
 											<Link
 												className="friendLink"
-												to={`/friendship/${friend.friendship_id}`}
-											>
+												to={`/friendship/${friend.friendship_id}`}>
 												<HiOutlineDotsVertical />
 											</Link>
 										</button>

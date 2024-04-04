@@ -26,8 +26,7 @@ export default function SimplifedFriendList() {
 						<li key={index}>
 							<Link
 								to={`/friendship/${friend.friendship_id}`}
-								className="sFriend"
-							>
+								className="sFriend">
 								<img
 									className="petitePP"
 									src="/default.png"

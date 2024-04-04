@@ -49,8 +49,7 @@ export default function FriendRequests() {
 														friendRequest.friendship_id,
 														true
 													)
-												}
-											>
+												}>
 												<IoMdCheckmark />
 											</button>
 
@@ -60,8 +59,7 @@ export default function FriendRequests() {
 														friendRequest.friendship_id,
 														false
 													)
-												}
-											>
+												}>
 												<RxCross2 />
 											</button>
 										</div>

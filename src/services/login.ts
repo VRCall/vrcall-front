@@ -11,7 +11,7 @@ export const loginUser = async (data: LoginData) => {
 		password: data.password
 	});
 
-	let r;
+	let result;
 
 	await axios
 		.post(`${import.meta.env.VITE_API_URL}/users/login`, jsonData, {
@@ -21,10 +21,8 @@ export const loginUser = async (data: LoginData) => {
 		})
 		.then((response: AxiosResponse) => {
 			localStorage.setItem("token", response.data.token);
-			r = response.status;
+			result = response.status;
 		});
 
-	console.log(r);
-
-	return r;
+	return result;
 };

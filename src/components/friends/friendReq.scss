@@ -1,0 +1,77 @@
+.friend-requests-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 2%;
+}
+
+.friend-requests-title {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: white;
+}
+
+.friend-request-list {
+	list-style-type: none;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.friend-request-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px;
+	width: 94%;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #1d415c;
+	transition: background-color 0.3s ease;
+	margin: auto;
+	&:hover {
+		background-color: rgba(128, 128, 128, 0.2);
+	}
+}
+
+.friend-request-info {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.friend-request-img {
+	border-radius: 25%;
+	width: 35px;
+	margin-right: 1vh;
+}
+
+.friend-request-name {
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.friend-request-buttons {
+	display: flex;
+}
+
+.friend-request-button {
+	background-color: #0c3451;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 8px 16px;
+	margin-left: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	&:hover {
+		background-color: #0a2c3f;
+	}
+}
+
+.friend-request-buttons-container {
+	margin-left: 40%;
+	display: flex;
+	display: row;
+}

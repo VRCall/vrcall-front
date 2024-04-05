@@ -5,7 +5,7 @@ import {
 	Message,
 	getCurrentUser
 } from "../../services/chat";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
@@ -36,7 +36,7 @@ export default function ChatFriend() {
 				await checkFriendship(id!);
 				await loadMessages();
 				getUser();
-				socket.emit("join-chat", id);
+				socket.emit("join-chat", `chat-${id}`);
 				socket.on("receiveMessage", (data: any) => {
 					setMessages((prevMessages) => [
 						...prevMessages,
@@ -127,22 +127,6 @@ export default function ChatFriend() {
 		}
 	};
 
-	const startCall = (type: string) => {
-		switch (type) {
-			case "video":
-				navigate(`/call/${id}`);
-				break;
-			case "audio":
-				navigate(`/call/${id}`);
-				break;
-			case "three":
-				navigate(`/three`);
-				break;
-			default:
-				break;
-		}
-	};
-
 	return (
 		<div className="chat">
 			<div className="headerChat">
@@ -150,46 +134,53 @@ export default function ChatFriend() {
 					<h1>{sender?.pseudo}</h1>
 				</div>
 				<div className="headerD">
-					<button
-						className="btncall"
-						onClick={() => startCall("audio")}>
-						<FiPhoneCall />
-					</button>
-					<button
-						className="btnvisio"
-						onClick={() => startCall("video")}>
-						<PiVideoCameraBold />
-					</button>
-					<button
-						className="btn3D"
-						onClick={() => startCall("three")}>
-						<BsBadgeVr />
-					</button>
+					<Link
+						to={`/call/${id}?camera=false`}
+						target="_blank"
+						style={{ display: "inherit" }}>
+						<button className="btncall">
+							<FiPhoneCall />
+						</button>
+					</Link>
+					<Link
+						to={`/call/${id}?camera=true`}
+						target="_blank"
+						style={{ display: "inherit" }}>
+						<button className="btnvisio">
+							<PiVideoCameraBold />
+						</button>
+					</Link>
+					<Link
+						to={`/call/${id}`}
+						target="_blank"
+						style={{ display: "inherit" }}>
+						<button className="btn3D">
+							<BsBadgeVr />
+						</button>
+					</Link>
 				</div>
 			</div>
 			<div className="chat-input">
 				<div className="chat-container" ref={chatContainerRef}>
 					{messages &&
 						messages.map((message, index) => (
-							<>
-								<div className="message" key={index}>
-									<img
-										className="petitePP"
-										src="/default.png"
-										// src={friend.img}
-									/>
-									<div className="container">
-										<b>{message.senderName}</b>
-										<span
-											style={{
-												color: "rgb(215, 183, 2)",
-												wordBreak: "break-word"
-											}}>
-											{message.text}
-										</span>
-									</div>
+							<div className="message" key={index}>
+								<img
+									className="petitePP"
+									src="/default.png"
+									// src={friend.img}
+								/>
+								<div className="container">
+									<b>{message.senderName}</b>
+									<span
+										style={{
+											color: "rgb(215, 183, 2)",
+											wordBreak: "break-word"
+										}}>
+										{message.text}
+									</span>
 								</div>
-							</>
+							</div>
 						))}
 				</div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
@@ -18,10 +18,12 @@ export default function Index({ socket }: CallProps) {
 	const peerInstance = useRef(null);
 
 	const { roomId } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	console.log(searchParams.get("camera"));
 
 	const getUser = async (id: string) => {
 		const user = await getCurrentUser();
-		socket.emit("join-room", roomId, id);
+		socket.emit("join-room", `call-${roomId}`, id);
 	};
 
 	useEffect(() => {
@@ -33,8 +35,12 @@ export default function Index({ socket }: CallProps) {
 		});
 
 		peer.on("call", (call) => {
+			let camera = searchParams.get("camera");
+			let isCam = false;
+			if (camera === "true") isCam = true;
+
 			navigator.mediaDevices
-				.getUserMedia({ video: true, audio: true })
+				.getUserMedia({ video: isCam, audio: true })
 				.then((stream: MediaStream) => {
 					setLocalStream(stream);
 
@@ -52,11 +58,19 @@ export default function Index({ socket }: CallProps) {
 		socket.on("user-connected", (userId: string) => {
 			call(userId);
 		});
+
+		return () => {
+			socket.emit("leave-room", `call-${roomId}`);
+			localStream?.getTracks()[0].stop();
+		};
 	}, []);
 
 	const call = (remotePeerId: string) => {
+		let camera = searchParams.get("camera");
+		let isCam = false;
+		if (camera === "true") isCam = true;
 		navigator.mediaDevices
-			.getUserMedia({ video: true, audio: true })
+			.getUserMedia({ video: isCam, audio: true })
 			.then((stream: MediaStream) => {
 				setLocalStream(stream);
 				currentUserVideoRef.current.srcObject = stream;

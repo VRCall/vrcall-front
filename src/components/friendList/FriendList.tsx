@@ -22,7 +22,7 @@ export default function FriendList() {
 
 	return (
 		<>
-			<h1>Friend List</h1>
+			<h1 className="tittle">Friend List</h1>
 			<input
 				className="search"
 				placeholder="friend"

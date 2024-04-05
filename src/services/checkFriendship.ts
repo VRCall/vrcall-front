@@ -18,6 +18,6 @@ export const checkFriendship = async (
 	} catch (error) {
 		console.error("Error checking friendship:", error);
 		console.log(error);
-		//throw error;
+		throw error;
 	}
 };

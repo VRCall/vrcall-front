@@ -4,6 +4,7 @@ import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
 import { getCurrentUser } from "../../services/chat";
+import { checkFriendship } from "../../services/checkFriendship";
 
 type CallProps = {
 	socket: Socket;
@@ -26,7 +27,17 @@ export default function Index({ socket }: CallProps) {
 		socket.emit("join-room", `call-${roomId}`, id);
 	};
 
+	const fetchData = async () => {
+		try {
+			await checkFriendship(roomId);
+		} catch (error) {
+			console.error("Error checking friendship:", error);
+			window.close();
+		}
+	};
+
 	useEffect(() => {
+		fetchData();
 		const peer = new Peer();
 
 		peer.on("open", (id) => {
@@ -103,9 +114,6 @@ export default function Index({ socket }: CallProps) {
 
 	return (
 		<div className="App">
-			{/* <h1>Current user id is {peerId}</h1>
-          <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
-          <button onClick={() => call(remotePeerIdValue)}>Call</button> */}
 			<div className="container">
 				<div className="video-container">
 					<video

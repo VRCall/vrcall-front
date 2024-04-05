@@ -11,6 +11,8 @@ import Profile from "./pages/Profile";
 import Call from "./pages/Call";
 import { io } from "socket.io-client";
 import { notifications } from "./utils/notification";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
@@ -37,6 +39,7 @@ function CustomLayout() {
 	notifications(socket);
 	return (
 		<div className="layout">
+			<ToastContainer />
 			<NavBar />
 			<div className="routes">
 				<Routes>

@@ -30,8 +30,14 @@ export default function ChatFriend() {
 	const navigate = useNavigate();
 	const [sender, setSender] = useState<Profile>();
 
-	console.log(messages);
 	useEffect(() => {
+		const fetchProfile = async () => {
+			await getProfileByFriendshipId(id!).then((data) => {
+				setSender(data);
+			});
+		};
+		fetchProfile();
+
 		const fetchData = async () => {
 			try {
 				await checkFriendship(id!);
@@ -55,13 +61,6 @@ export default function ChatFriend() {
 			}
 		};
 		fetchData();
-
-		const fetchProfile = async () => {
-			await getProfileByFriendshipId(id!).then((data) => {
-				setSender(data);
-			});
-		};
-		fetchProfile();
 
 		return () => {
 			socket.off("receiveMessage");
@@ -102,7 +101,8 @@ export default function ChatFriend() {
 				socket.emit("sendMessage", {
 					text: newMessage,
 					senderName: currentUser.pseudo,
-					chatId: id
+					chatId: id,
+					receiverName: sender?.pseudo
 				});
 
 				setMessages((prevMessages) => [

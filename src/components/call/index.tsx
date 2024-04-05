@@ -4,6 +4,7 @@ import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
 import { getCurrentUser } from "../../services/chat";
+import { checkFriendship } from "../../services/checkFriendship";
 
 type CallProps = {
 	socket: Socket;
@@ -27,37 +28,46 @@ export default function Index({ socket }: CallProps) {
 	};
 
 	useEffect(() => {
-		const peer = new Peer();
+		const fetchData = async () => {
+			try {
+				await checkFriendship(roomId);
+				const peer = new Peer();
 
-		peer.on("open", (id) => {
-			getUser(id);
-			setPeerId(id);
-		});
-
-		peer.on("call", (call) => {
-			let camera = searchParams.get("camera");
-			let isCam = false;
-			if (camera === "true") isCam = true;
-
-			navigator.mediaDevices
-				.getUserMedia({ video: isCam, audio: true })
-				.then((stream: MediaStream) => {
-					setLocalStream(stream);
-
-					currentUserVideoRef.current.srcObject = stream;
-					currentUserVideoRef.current.play();
-					call.answer(stream);
-					call.on("stream", function (remoteStream) {
-						remoteVideoRef.current.srcObject = remoteStream;
-						remoteVideoRef.current.play();
-					});
+				peer.on("open", (id) => {
+					getUser(id);
+					setPeerId(id);
 				});
-		});
-		peerInstance.current = peer;
 
-		socket.on("user-connected", (userId: string) => {
-			call(userId);
-		});
+				peer.on("call", (call) => {
+					let camera = searchParams.get("camera");
+					let isCam = false;
+					if (camera === "true") isCam = true;
+
+					navigator.mediaDevices
+						.getUserMedia({ video: isCam, audio: true })
+						.then((stream: MediaStream) => {
+							setLocalStream(stream);
+
+							currentUserVideoRef.current.srcObject = stream;
+							currentUserVideoRef.current.play();
+							call.answer(stream);
+							call.on("stream", function (remoteStream) {
+								remoteVideoRef.current.srcObject = remoteStream;
+								remoteVideoRef.current.play();
+							});
+						});
+				});
+				peerInstance.current = peer;
+
+				socket.on("user-connected", (userId: string) => {
+					call(userId);
+				});
+			} catch (error) {
+				console.error("Error checking friendship:", error);
+				window.close();
+			}
+		};
+		fetchData();
 
 		return () => {
 			socket.emit("leave-room", `call-${roomId}`);
@@ -103,9 +113,6 @@ export default function Index({ socket }: CallProps) {
 
 	return (
 		<div className="App">
-			{/* <h1>Current user id is {peerId}</h1>
-          <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
-          <button onClick={() => call(remotePeerIdValue)}>Call</button> */}
 			<div className="container">
 				<div className="video-container">
 					<video

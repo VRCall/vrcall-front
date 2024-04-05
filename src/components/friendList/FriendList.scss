@@ -19,6 +19,10 @@
 	padding: 1%;
 	width: 96%;
 	flex-direction: column;
+	margin-left: 1%;
+}
+.tittle {
+	text-align: center;
 }
 
 .friendLI {
@@ -60,8 +64,9 @@
 	border: 2px solid gray;
 	background-color: rgba(128, 128, 128, 0);
 	padding: 5px;
+	margin: 0 auto;
+}
 
-	&:focus {
-		outline: none;
-	}
+.search:focus {
+	outline: none;
 }

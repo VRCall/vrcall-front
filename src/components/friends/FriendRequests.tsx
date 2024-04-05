@@ -6,6 +6,7 @@ import {
 	getFriendRequests
 } from "../../services/getFriendRequest";
 import { acceptRequest } from "../../services/addFriends";
+import "./friendReq.scss";
 
 export default function FriendRequests() {
 	const [friendRequest, setFriendRequest] = useState<
@@ -23,45 +24,55 @@ export default function FriendRequests() {
 	}, []);
 
 	return (
-		<>
-			<h1>Pending requests</h1>
+		<div className="friend-requests-container">
+			<h1 className="friend-requests-title">Pending requests</h1>
 
 			{friendRequest && friendRequest!.length === 0 ? (
 				<p>no requests</p>
 			) : (
-				<ul>
+				<ul className="friend-request-list">
 					{friendRequest &&
 						friendRequest!.map(
 							(friendRequest: FriendRequest, index) => {
 								return (
-									<li key={index}>
-										<div>
-											<img
-												src={friendRequest.img}
-												alt={friendRequest.pseudo}
-											/>
+									<li
+										key={index}
+										className="friend-request-item">
+										<div className="friend-request-info">
+											<div className="friend-request-details">
+												<img
+													className="friend-request-img"
+													src="/default.png"
+													alt="Friend Avatar"
+												/>
+												<b className="friend-request-name">
+													{friendRequest.pseudo}
+												</b>
+											</div>
 
-											<b>{friendRequest.pseudo}</b>
+											<div className="friend-request-buttons-container">
+												<button
+													className="friend-request-button"
+													onClick={() =>
+														acceptRequest(
+															friendRequest.friendship_id,
+															true
+														)
+													}>
+													<IoMdCheckmark />
+												</button>
 
-											<button
-												onClick={() =>
-													acceptRequest(
-														friendRequest.friendship_id,
-														true
-													)
-												}>
-												<IoMdCheckmark />
-											</button>
-
-											<button
-												onClick={() =>
-													acceptRequest(
-														friendRequest.friendship_id,
-														false
-													)
-												}>
-												<RxCross2 />
-											</button>
+												<button
+													className="friend-request-button"
+													onClick={() =>
+														acceptRequest(
+															friendRequest.friendship_id,
+															false
+														)
+													}>
+													<RxCross2 />
+												</button>
+											</div>
 										</div>
 									</li>
 								);
@@ -69,6 +80,6 @@ export default function FriendRequests() {
 						)}
 				</ul>
 			)}
-		</>
+		</div>
 	);
 }

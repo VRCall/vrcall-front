@@ -1,62 +1,53 @@
 import axios from "axios";
 import { ReactNode, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface AuthGuardProps {
-    children: ReactNode
-};
+	children: ReactNode;
+}
 
 export default function AuthGuard({ children }: AuthGuardProps) {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+	const checkAuth = () => {
+		// Check if current location is login or signup
+		const isLoginPage = location.pathname === "/login";
+		const isRegisterPage = location.pathname === "/register";
 
-    const checkAuth = () => {
-        // Check if current location is login or signup
-        const isLoginPage = location.pathname === "/login";
-        const isRegisterPage = location.pathname === "/register";
+		const hasToken = !!localStorage.getItem("token");
 
-        const hasToken = !!localStorage.getItem("token");
+		if (!hasToken && !isLoginPage && !isRegisterPage) {
+			navigate("/login");
+			setIsLoading(false);
+		}
 
-        if(!hasToken && !isLoginPage && !isRegisterPage) {
-            navigate("/login");
-            setIsLoading(false)
-        }
+		const authToken = localStorage.getItem("token") || "";
 
-        const authToken = localStorage.getItem("token") || "";
+		axios
+			.post(
+				`${import.meta.env.VITE_API_URL}/users/auth`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${authToken}`
+					}
+				}
+			)
+			.then((response) => {
+				if (response.data && (isLoginPage || isRegisterPage)) {
+					navigate("/");
+				} else if (!response.data && !isLoginPage && !isRegisterPage) {
+					navigate("/login");
+				}
+				setIsLoading(false);
+			});
+	};
 
-        axios.post(`${import.meta.env.VITE_API_URL}/users/auth`, {}, {
-            headers: {
-                "Authorization": `Bearer ${authToken}`
-            },
-        })
-        .then((response) => {
-            if(response.data && (isLoginPage || isRegisterPage)) {
-                navigate("/");
-            }
-            else if(!response.data && !isLoginPage && !isRegisterPage) {
-                navigate("/login");
-            }
-            setIsLoading(false)
-        });
-    }
+	useEffect(() => {
+		checkAuth();
+	}, [navigate]);
 
-    useEffect(() => {
-        checkAuth();
-    }, [navigate])
-
-    return ( 
-    
-        <>
-        {
-            isLoading ?
-            <p>Loading...</p>
-            :
-            children
-        }
-        </>
-    
-    )
-
+	return <>{isLoading ? <p>Loading...</p> : children}</>;
 }

@@ -13,42 +13,45 @@ import { io } from "socket.io-client";
 import { notifications } from "./utils/notification";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <AuthGuard>
-        <Routes>
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<CustomLayout />} />
-          <Route path="call/:roomId" element={<Call />} />
-        </Routes>
-      </AuthGuard>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<AuthGuard>
+				<Routes>
+					<Route path="register" element={<Register />} />
+					<Route path="login" element={<Login />} />
+					<Route path="*" element={<CustomLayout />} />
+					<Route path="call/:roomId" element={<Call />} />
+				</Routes>
+			</AuthGuard>
+		</BrowserRouter>
+	);
 }
 
 const socket = io(`${import.meta.env.VITE_API_URL}`, {
-  extraHeaders: {
-    "ngrok-skip-browser-warning": "true",
-  },
+	extraHeaders: {
+		"ngrok-skip-browser-warning": "true"
+	}
 });
 
 function CustomLayout() {
-  notifications(socket);
-  return (
-    <div className="layout">
-      <NavBar />
-      <div className="routes">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Home />} />
-          <Route path="/friendship/:id" element={<Chat />} />
-          <Route path="/friendships/requests" element={<Requests />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </div>
-    </div>
-  );
+	notifications(socket);
+	return (
+		<div className="layout">
+			<NavBar />
+			<div className="routes">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="*" element={<Home />} />
+					<Route path="/friendship/:id" element={<Chat />} />
+					<Route
+						path="/friendships/requests"
+						element={<Requests />}
+					/>
+					<Route path="/profile" element={<Profile />} />
+				</Routes>
+			</div>
+		</div>
+	);
 }
 
 export default App;

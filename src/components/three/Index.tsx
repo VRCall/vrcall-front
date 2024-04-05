@@ -10,96 +10,102 @@ import { getCurrentUser } from "../../services/chat";
 import Peer from "peerjs";
 
 const socket: Socket = socketIO(import.meta.env.VITE_API_URL, {
-    extraHeaders: {
-        "ngrok-skip-browser-warning": "true"
-    }
+	extraHeaders: {
+		"ngrok-skip-browser-warning": "true"
+	}
 });
 
 export default function Index() {
+	const [peerId, setPeerId] = useState("");
+	const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
+	const [localStream, setLocalStream] = useState<MediaStream>();
+	const [remoteStream, setRemoteStream] = useState<MediaStream>();
+	const peerInstance = useRef(null);
 
-    const [peerId, setPeerId] = useState('');
-    const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
-	const [localStream, setLocalStream] = useState<MediaStream>()
-	const [remoteStream, setRemoteStream] = useState<MediaStream>()
-    const peerInstance = useRef(null);
+	const { roomId } = useParams();
 
-    const { roomId } = useParams();
+	const getUser = async (id: string) => {
+		const user = await getCurrentUser();
+		console.log(user);
+		socket.emit("join-room", roomId, id);
+	};
 
-    const getUser = async (id: string) => {
-        const user = await getCurrentUser();
-        console.log(user);
-        socket.emit("join-room", roomId, id)
-    }
+	useEffect(() => {
+		const peer = new Peer();
 
-    useEffect(() => {
-        const peer = new Peer();
-    
-        peer.on('open', (id) => {
-          getUser(id)
-          setPeerId(id)
-        });
-    
-        peer.on('call', (call) => {
-          navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-          .then((stream: MediaStream) => {
-			setLocalStream(stream);
-            call.answer(stream)
-            call.on('stream', (remoteStream: MediaStream) => {
-              setRemoteStream(remoteStream)
-            });
-          })
-        })
-      peerInstance.current = peer;
+		peer.on("open", (id) => {
+			getUser(id);
+			setPeerId(id);
+		});
 
-      socket.on("user-connected", (userId: string) => {
-        call(userId)
-      })
-    }, [])
+		peer.on("call", (call) => {
+			navigator.mediaDevices
+				.getUserMedia({ video: true, audio: true })
+				.then((stream: MediaStream) => {
+					setLocalStream(stream);
+					call.answer(stream);
+					call.on("stream", (remoteStream: MediaStream) => {
+						setRemoteStream(remoteStream);
+					});
+				});
+		});
+		peerInstance.current = peer;
 
-    const call = (remotePeerId: string) => {
-        navigator.mediaDevices.getUserMedia({video: true, audio: true})
-        .then((stream: MediaStream) => {
-			setLocalStream(stream)
-			console.log(localStream);
-      
-            const call = peerInstance.current.call(remotePeerId, stream)
-      
-            call.on('stream', (remoteStream: MediaStream) => {
-              setRemoteStream(remoteStream)
-            });
-        })
-    }
+		socket.on("user-connected", (userId: string) => {
+			call(userId);
+		});
+	}, []);
 
-    const toggleCamera = () => {
+	const call = (remotePeerId: string) => {
+		navigator.mediaDevices
+			.getUserMedia({ video: true, audio: true })
+			.then((stream: MediaStream) => {
+				setLocalStream(stream);
+				console.log(localStream);
+
+				const call = peerInstance.current.call(remotePeerId, stream);
+
+				call.on("stream", (remoteStream: MediaStream) => {
+					setRemoteStream(remoteStream);
+				});
+			});
+	};
+
+	const toggleCamera = () => {
 		console.log(localStream);
-		
-		let videoTrack = localStream.getTracks().find(track => track.kind === "video")
 
-		videoTrack!.enabled = !videoTrack?.enabled
-    } 
+		let videoTrack = localStream
+			.getTracks()
+			.find((track) => track.kind === "video");
 
-    const toggleMic = () => {
-		let audioTrack = localStream.getTracks().find(track => track.kind === "audio")
+		videoTrack!.enabled = !videoTrack?.enabled;
+	};
 
-		audioTrack!.enabled = !audioTrack?.enabled
-    } 
+	const toggleMic = () => {
+		let audioTrack = localStream
+			.getTracks()
+			.find((track) => track.kind === "audio");
 
-    return(
+		audioTrack!.enabled = !audioTrack?.enabled;
+	};
 
-        <div className="canvas-div">
-            <KeyboardControls map={ [
-                { name: "forward", keys: ["ArrowUp", "w", "W"] },
-                { name: "backward", keys: ["ArrowDown", "s", "S"] },
-                { name: "left", keys: ["ArrowLeft", "a", "A"] },
-                { name: "right", keys: ["ArrowRight", "d", "D"] },
-                { name: "jump", keys: ["Space"] }
-            ] }>
-                <Canvas>
-                    <Experience localStream={localStream} remoteStream={remoteStream} />
-                </Canvas>
-            </KeyboardControls>
-        </div>
-        
-    )
-
+	return (
+		<div className="canvas-div">
+			<KeyboardControls
+				map={[
+					{ name: "forward", keys: ["ArrowUp", "w", "W"] },
+					{ name: "backward", keys: ["ArrowDown", "s", "S"] },
+					{ name: "left", keys: ["ArrowLeft", "a", "A"] },
+					{ name: "right", keys: ["ArrowRight", "d", "D"] },
+					{ name: "jump", keys: ["Space"] }
+				]}>
+				<Canvas>
+					<Experience
+						localStream={localStream}
+						remoteStream={remoteStream}
+					/>
+				</Canvas>
+			</KeyboardControls>
+		</div>
+	);
 }

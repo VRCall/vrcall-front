@@ -8,40 +8,43 @@ import Chat from "./pages/Chat";
 import NavBar from "./components/navBar/NavBar";
 import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
-import Call from './pages/Call'
+import Call from "./pages/Call";
 import Three from "./pages/Three";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <AuthGuard>
-        <Routes>
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<CustomLayout />} />
-          <Route path="call/:roomId" element={<Call />} />
-          <Route path="three" element={<Three />} />
-        </Routes>
-      </AuthGuard>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<AuthGuard>
+				<Routes>
+					<Route path="register" element={<Register />} />
+					<Route path="login" element={<Login />} />
+					<Route path="*" element={<CustomLayout />} />
+					<Route path="call/:roomId" element={<Call />} />
+					<Route path="three" element={<Three />} />
+				</Routes>
+			</AuthGuard>
+		</BrowserRouter>
+	);
 }
 
 function CustomLayout() {
-  return (
-    <div className="layout">
-      <NavBar />
-      <div className="routes">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Home />} />
-          <Route path="/friendship/:id" element={<Chat />} />
-          <Route path="/friendships/requests" element={<Requests />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </div>
-    </div>
-  );
+	return (
+		<div className="layout">
+			<NavBar />
+			<div className="routes">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="*" element={<Home />} />
+					<Route path="/friendship/:id" element={<Chat />} />
+					<Route
+						path="/friendships/requests"
+						element={<Requests />}
+					/>
+					<Route path="/profile" element={<Profile />} />
+				</Routes>
+			</div>
+		</div>
+	);
 }
 
 export default App;

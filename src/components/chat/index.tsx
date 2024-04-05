@@ -34,11 +34,6 @@ const ChatFriend = () => {
                     setNotifications(prevNotifications => [...prevNotifications, `Nouveau message de ${data.senderName}`]); 
                 });
 
-                socket.on("receiveNotification", (notification) => {
-                    
-                    console.log("Notification reçue:", notification);
-                });
-
             } catch (error) {
                 navigate('/') 
                 console.error("Error checking friendship:", error);

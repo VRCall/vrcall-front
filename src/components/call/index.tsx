@@ -27,47 +27,48 @@ export default function Index({ socket }: CallProps) {
 		socket.emit("join-room", `call-${roomId}`, id);
 	};
 
+	const fetchData = async () => {
+		try {
+			await checkFriendship(roomId);
+		} catch (error) {
+			console.error("Error checking friendship:", error);
+			window.close();
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				await checkFriendship(roomId);
-				const peer = new Peer();
-
-				peer.on("open", (id) => {
-					getUser(id);
-					setPeerId(id);
-				});
-
-				peer.on("call", (call) => {
-					let camera = searchParams.get("camera");
-					let isCam = false;
-					if (camera === "true") isCam = true;
-
-					navigator.mediaDevices
-						.getUserMedia({ video: isCam, audio: true })
-						.then((stream: MediaStream) => {
-							setLocalStream(stream);
-
-							currentUserVideoRef.current.srcObject = stream;
-							currentUserVideoRef.current.play();
-							call.answer(stream);
-							call.on("stream", function (remoteStream) {
-								remoteVideoRef.current.srcObject = remoteStream;
-								remoteVideoRef.current.play();
-							});
-						});
-				});
-				peerInstance.current = peer;
-
-				socket.on("user-connected", (userId: string) => {
-					call(userId);
-				});
-			} catch (error) {
-				console.error("Error checking friendship:", error);
-				window.close();
-			}
-		};
 		fetchData();
+		const peer = new Peer();
+
+		peer.on("open", (id) => {
+			getUser(id);
+			setPeerId(id);
+		});
+
+		peer.on("call", (call) => {
+			let camera = searchParams.get("camera");
+			let isCam = false;
+			if (camera === "true") isCam = true;
+
+			navigator.mediaDevices
+				.getUserMedia({ video: isCam, audio: true })
+				.then((stream: MediaStream) => {
+					setLocalStream(stream);
+
+					currentUserVideoRef.current.srcObject = stream;
+					currentUserVideoRef.current.play();
+					call.answer(stream);
+					call.on("stream", function (remoteStream) {
+						remoteVideoRef.current.srcObject = remoteStream;
+						remoteVideoRef.current.play();
+					});
+				});
+		});
+		peerInstance.current = peer;
+
+		socket.on("user-connected", (userId: string) => {
+			call(userId);
+		});
 
 		return () => {
 			socket.emit("leave-room", `call-${roomId}`);

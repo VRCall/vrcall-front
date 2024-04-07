@@ -4,10 +4,11 @@ import Experience from "./Experience";
 import "./index.scss";
 
 import socketIO, { Socket } from "socket.io-client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCurrentUser } from "../../services/chat";
 import Peer from "peerjs";
+import Environment from "./Environment";
 
 const socket: Socket = socketIO(import.meta.env.VITE_API_URL, {
 	extraHeaders: {
@@ -91,21 +92,26 @@ export default function Index() {
 
 	return (
 		<div className="canvas-div">
-			<KeyboardControls
-				map={[
-					{ name: "forward", keys: ["ArrowUp", "w", "W"] },
-					{ name: "backward", keys: ["ArrowDown", "s", "S"] },
-					{ name: "left", keys: ["ArrowLeft", "a", "A"] },
-					{ name: "right", keys: ["ArrowRight", "d", "D"] },
-					{ name: "jump", keys: ["Space"] }
-				]}>
-				<Canvas>
-					<Experience
-						localStream={localStream}
-						remoteStream={remoteStream}
-					/>
-				</Canvas>
-			</KeyboardControls>
+			<Canvas
+				onPointerDown={(e) => {
+					if (e.pointerType === "mouse") {
+						(e.target as HTMLCanvasElement).requestPointerLock();
+					}
+				}}>
+				<Environment />
+				{/* <Experience
+					localStream={localStream}
+					remoteStream={remoteStream}
+				/> */}
+				<Experience
+					localStream={localStream}
+					remoteStream={remoteStream}
+				/>
+			</Canvas>
+			<div style={{ position: "absolute", left: "50%", top: "90%" }}>
+				<button onClick={toggleCamera}>Camera</button>
+				<button onClick={toggleMic}>Audio</button>
+			</div>
 		</div>
 	);
 }

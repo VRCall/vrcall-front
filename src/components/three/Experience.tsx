@@ -5,7 +5,7 @@ import {
 	useVideoTexture
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 
 type ExperienceProps = {
 	localStream: MediaStream;
@@ -51,36 +51,23 @@ export default function Experience({
 			<Perf position={"top-left"} />
 
 			{/* <OrbitControls makeDefault /> */}
-			<PointerLockControls />
-
-			<mesh scale={1.5}>
-				<boxGeometry />
-				<meshBasicMaterial color={"red"} />
-				{/* <Html position={ [1, 1, 0] }
-                        distanceFactor={ 5 }>
-                    <p style={ { color: "blue" } }>
-                        gello
-                    </p>
-                    <video style={{ border: "2px solid black" }} onLoad={ addLocalVideo } ref={ localRef } />
-                    <video style={{ border: "2px solid black" }} onLoad={ addRemoteVideo } ref={ remoteRef } />
-                </Html> */}
-			</mesh>
+			{/* <PointerLockControls /> */}
 
 			{/* <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
                 <planeGeometry />
                 <meshBasicMaterial ref={ plane } color={"green"} />
             </mesh> */}
 
-			<mesh position={[3, -1, -3]} scale={5}>
+			<mesh position={[3, 2.5, -3]} scale={5}>
 				<planeGeometry />
 				<Suspense fallback={null}>
-					<VideoMaterial src={localStream} />
+					<VideoMaterial src={localStream} type={"local"} />
 				</Suspense>
 			</mesh>
-			<mesh position={[-3, -1, -3]} scale={5}>
+			<mesh position={[-3, 2.5, -3]} scale={5}>
 				<planeGeometry />
 				<Suspense fallback={null}>
-					<VideoMaterial src={remoteStream} />
+					<VideoMaterial src={remoteStream} type={"remote"} />
 				</Suspense>
 			</mesh>
 		</>
@@ -89,9 +76,12 @@ export default function Experience({
 
 type VideoMaterialProps = {
 	src: MediaStream;
+	type: string;
 };
 
-function VideoMaterial({ src }: VideoMaterialProps) {
-	const texture = useVideoTexture(src);
+function VideoMaterial({ src, type }: VideoMaterialProps) {
+	const texture = useVideoTexture(src, {
+		muted: type === "local"
+	});
 	return <meshBasicMaterial map={texture} toneMapped={false} />;
 }

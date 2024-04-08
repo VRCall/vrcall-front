@@ -39,12 +39,14 @@ export default function FriendRequests() {
 										key={index}
 										className="friend-request-item">
 										<div className="friend-request-info">
-											<div className="friend-request-details">
+											<div className="friend-request-details-img">
 												<img
 													className="friend-request-img"
 													src="/default.png"
 													alt="Friend Avatar"
 												/>
+											</div>
+											<div className="friend-resquest-details-name">
 												<b className="friend-request-name">
 													{friendRequest.pseudo}
 												</b>

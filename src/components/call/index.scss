@@ -11,9 +11,9 @@
 	border-radius: 5px;
 	border: 1px solid #00e9f3;
 	position: absolute;
-	top: 25px;
-	left: 25px;
-	width: 450px;
+	top: 10px;
+	left: 10px;
+	height: 33%;
 	z-index: 1;
 }
 
@@ -24,10 +24,54 @@
 
 .button-container {
 	position: absolute;
-	bottom: 25px;
-	left: 50%;
+	bottom: 4%;
+	left: 35%;
+	width: 30%;
+	display: flex;
 	transform: translateX("-50%");
+	justify-content: space-evenly;
+	align-items: center;
 
-	button {
+	.camera,
+	.micro,
+	.raccrocher {
+		width: 5em;
+		height: 5em;
+		border-radius: 50%;
+		border: none;
+	}
+
+	.camera,
+	.micro {
+		background-color: #1d415c;
+		color: whitesmoke;
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgb(28, 86, 128);
+			transition: all 0.3s;
+		}
+	}
+
+	.raccrocher {
+		background-color: rgb(160, 0, 0);
+		color: whitesmoke;
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgb(209, 3, 3);
+			transition: all 0.3s;
+		}
+	}
+
+	.iconcam,
+	.iconmic {
+		width: 2em;
+		height: 4em;
+	}
+
+	.iconracc {
+		width: 2.5em;
+		height: 2.5em;
 	}
 }

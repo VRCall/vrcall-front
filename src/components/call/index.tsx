@@ -5,17 +5,23 @@ import "./index.scss";
 import Peer from "peerjs";
 import { getCurrentUser } from "../../services/chat";
 import { checkFriendship } from "../../services/checkFriendship";
+import { MdCallEnd } from "react-icons/md";
+import {
+	BsFillCameraVideoFill,
+	BsFillCameraVideoOffFill
+} from "react-icons/bs";
+import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
 
 type CallProps = {
 	socket: Socket;
 };
 
 export default function Index({ socket }: CallProps) {
-	const [peerId, setPeerId] = useState("");
-	const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
 	const remoteVideoRef = useRef(null);
 	const currentUserVideoRef = useRef(null);
 	const [localStream, setLocalStream] = useState<MediaStream>();
+	const [audio, setAudio] = useState<boolean>(true);
+	const [video, setVideo] = useState<boolean>(true);
 	const peerInstance = useRef(null);
 
 	const { roomId } = useParams();
@@ -42,7 +48,6 @@ export default function Index({ socket }: CallProps) {
 
 		peer.on("open", (id) => {
 			getUser(id);
-			setPeerId(id);
 		});
 
 		peer.on("call", (call) => {
@@ -102,6 +107,7 @@ export default function Index({ socket }: CallProps) {
 			.find((track) => track.kind === "video");
 
 		videoTrack!.enabled = !videoTrack?.enabled;
+		setVideo(!video);
 	};
 
 	const toggleMic = () => {
@@ -110,6 +116,11 @@ export default function Index({ socket }: CallProps) {
 			.find((track) => track.kind === "audio");
 
 		audioTrack!.enabled = !audioTrack?.enabled;
+		setAudio(!audio);
+	};
+
+	const toggleDisconnect = () => {
+		window.close();
 	};
 
 	return (
@@ -127,8 +138,23 @@ export default function Index({ socket }: CallProps) {
 				</div>
 			</div>
 			<div className="button-container">
-				<button onClick={toggleCamera}>Camera</button>
-				<button onClick={toggleMic}>Audio</button>
+				<button className="camera" onClick={toggleCamera}>
+					{video ? (
+						<BsFillCameraVideoFill className="iconcam" />
+					) : (
+						<BsFillCameraVideoOffFill className="iconcam" />
+					)}
+				</button>
+				<button className="micro" onClick={toggleMic}>
+					{audio ? (
+						<PiMicrophoneFill className="iconmic" />
+					) : (
+						<PiMicrophoneSlashFill className="iconmic" />
+					)}
+				</button>
+				<button className="raccrocher" onClick={toggleDisconnect}>
+					<MdCallEnd className="iconracc" />
+				</button>
 			</div>
 		</div>
 	);

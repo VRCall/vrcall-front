@@ -5,8 +5,9 @@
 	margin: auto;
 	justify-content: space-between;
 	background-color: #1d415c;
+
 	&:hover {
-		background-color: rgba(128, 128, 128, 0.134);
+		background-color: rgb(28, 86, 128);
 		transition: all 0.2s;
 	}
 }
@@ -15,11 +16,10 @@
 	list-style-type: none;
 	overflow: scroll;
 	display: flex;
-	margin: 0;
-	padding: 1%;
-	width: 96%;
+	margin: 0 auto;
+	padding: 0%;
+	width: 95%;
 	flex-direction: column;
-	margin-left: 1%;
 }
 .tittle {
 	text-align: center;
@@ -34,6 +34,12 @@
 	border: 1px solid black;
 	margin: 3px 0;
 	border-radius: 4px;
+
+	&:hover {
+		z-index: 1;
+		background-color: rgb(28, 86, 128);
+		transition: all 0.2s;
+	}
 }
 
 .friendLink {
@@ -43,16 +49,14 @@
 	align-items: center;
 	width: 100%;
 	text-align: center;
-	padding: 10px;
 }
 
 .petitePP {
-	width: 35px;
-	margin-right: 1vh;
+	width: 45px;
 }
 .buttonList {
 	background-color: #0c3451;
-	padding: 4px 14px;
+	padding: 10px 14px;
 	border: none;
 	border-radius: 5px;
 }
@@ -62,9 +66,8 @@
 	background-color: rgba(128, 128, 128, 0.425);
 	border-radius: 5px;
 	border: 2px solid gray;
-	background-color: rgba(128, 128, 128, 0);
 	padding: 5px;
-	margin: 0 auto;
+	margin: 0 auto 1vh;
 }
 
 .search:focus {

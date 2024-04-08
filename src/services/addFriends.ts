@@ -41,7 +41,7 @@ export const acceptRequest = async (id: string, accept: boolean) => {
 		);
 
 		if (response.status === 200) {
-			return response.data.request;
+			return response.data;
 		} else {
 			console.error("Error accepting request:", response.data.message);
 			return null;

@@ -8,7 +8,10 @@ import {
 import { acceptRequest } from "../../services/addFriends";
 import "./friendReq.scss";
 
-export default function FriendRequests() {
+export default function FriendRequests(
+	{ friendRequest },
+	{ friendRequest: any }
+) {
 	const [friendRequest, setFriendRequest] = useState<
 		FriendRequest[] | undefined
 	>([]);

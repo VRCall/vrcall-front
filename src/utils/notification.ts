@@ -28,7 +28,7 @@ export const notifications = (socket: Socket) => {
 						break;
 
 					case "friend-request":
-						console.log("Friend request notification", data);
+						notif();
 						break;
 
 					case "call":

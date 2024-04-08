@@ -44,7 +44,8 @@ export default function NavBar() {
 					</div>
 					<p className="linkText">Profile</p>
 				</Link>
-				<QuickCall roomId={"your-room-id"} />
+
+				<QuickCall />
 			</div>
 			<button
 				className="disconnectButton"

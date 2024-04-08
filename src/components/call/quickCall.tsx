@@ -6,9 +6,13 @@ import { useLocation } from "react-router-dom";
 
 const QuickCall = () => {
 	const [roomId, setRoomId] = useState(uuidv4());
-	import.meta.env.QUICK_CALL_URL;
 
-	const handleCopy = () => {};
+	const handleCopy = () => {
+		alert(
+			"Le lien a été copié dans le presse-papiers. Merci de le partager avec la personne concernée."
+		);
+		window.open(`${window.location.origin}/call/${roomId}?camera=true`);
+	};
 
 	const handleRegenerate = () => {
 		setRoomId(uuidv4());

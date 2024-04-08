@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 import { FaVideo } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
-const generateRoomId = () => {
-	const characters =
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	const roomIdLength = 8;
-	let result = "";
-	for (let i = 0; i < roomIdLength; i++) {
-		result += characters.charAt(
-			Math.floor(Math.random() * characters.length)
-		);
-	}
-	return result;
-};
+import { v4 as uuidv4 } from "uuid";
+import { useLocation } from "react-router-dom";
 
 const QuickCall = () => {
-	const [roomId, setRoomId] = useState(generateRoomId());
+	const [roomId, setRoomId] = useState(uuidv4());
+	import.meta.env.QUICK_CALL_URL;
 
 	const handleCopy = () => {};
 
 	const handleRegenerate = () => {
-		setRoomId(generateRoomId());
+		setRoomId(uuidv4());
 	};
+
+	const location = useLocation();
+	console.log(window.location.origin);
 
 	return (
 		<div>
 			<CopyToClipboard
-				text={`http://localhost:5173/call/${roomId}?camera=true`}
+				text={`${window.location.origin}/call/${roomId}?camera=true`}
 				onCopy={handleCopy}>
 				<button onClick={handleRegenerate}>
 					<FaVideo />

@@ -120,10 +120,7 @@ export default function Index({ socket }: CallProps) {
 	};
 
 	const toggleDisconnect = () => {
-		if (call) {
-			call.close();
-			setCall(null);
-		}
+		window.close();
 	};
 
 	return (

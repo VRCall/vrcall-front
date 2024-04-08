@@ -17,6 +17,9 @@ export default function Index({ socket }: CallProps) {
 	const currentUserVideoRef = useRef(null);
 	const [localStream, setLocalStream] = useState<MediaStream>();
 	const peerInstance = useRef(null);
+	const mirrorVideo = (videoElement: HTMLVideoElement) => {
+		videoElement.style.transform = "rotateY(0deg)";
+	};
 
 	const { roomId } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -96,6 +99,31 @@ export default function Index({ socket }: CallProps) {
 			});
 	};
 
+	const shareScreen = () => {
+		navigator.mediaDevices
+			.getDisplayMedia({ video: true })
+			.then((screenStream) => {
+				const call = peerInstance.current.call(
+					remotePeerIdValue,
+					screenStream
+				);
+
+				call.on("stream", (remoteStream) => {
+					remoteVideoRef.current.srcObject = remoteStream;
+					remoteVideoRef.current.play();
+					mirrorVideo(remoteVideoRef.current);
+				});
+
+				setLocalStream(screenStream);
+				currentUserVideoRef.current.srcObject = screenStream;
+				currentUserVideoRef.current.play();
+				mirrorVideo(currentUserVideoRef.current);
+			})
+			.catch((error) => {
+				console.error("Error accessing screen sharing:", error);
+			});
+	};
+
 	const toggleCamera = () => {
 		let videoTrack = localStream
 			.getTracks()
@@ -129,6 +157,7 @@ export default function Index({ socket }: CallProps) {
 			<div className="button-container">
 				<button onClick={toggleCamera}>Camera</button>
 				<button onClick={toggleMic}>Audio</button>
+				<button onClick={shareScreen}>Share Screen</button>
 			</div>
 		</div>
 	);

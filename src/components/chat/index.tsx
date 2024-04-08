@@ -50,7 +50,8 @@ export default function ChatFriend() {
 						{
 							text: data.text,
 							id: id!,
-							senderName: data.senderName
+							senderName: data.senderName,
+							sent_at: data.sent_at
 						}
 					]);
 				});
@@ -93,6 +94,7 @@ export default function ChatFriend() {
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		//Date.parse("HH:mm DD/MM/YYYY");
 
 		if (newMessage.trim() !== "") {
 			try {
@@ -110,7 +112,8 @@ export default function ChatFriend() {
 					{
 						text: newMessage,
 						id: id!,
-						senderName: currentUser.pseudo
+						senderName: currentUser.pseudo,
+						sent_at: new Date(Date.parse("HH:mm"))
 					}
 				]);
 				setNewMessage("");
@@ -119,6 +122,17 @@ export default function ChatFriend() {
 				setError("Error sending message");
 			}
 		}
+	};
+
+	const formatDate = (date: string) => {
+		const formattedDate = new Date(date);
+		const hours = String(formattedDate.getHours()).padStart(2, "0");
+		const minutes = String(formattedDate.getMinutes()).padStart(2, "0");
+		const day = String(formattedDate.getDate()).padStart(2, "0");
+		const month = String(formattedDate.getMonth() + 1).padStart(2, "0");
+		const year = formattedDate.getFullYear();
+
+		return `${hours}:${minutes} ${day}/${month}/${year}`;
 	};
 
 	const scrollToBottom = () => {
@@ -172,14 +186,19 @@ export default function ChatFriend() {
 									// src={friend.img}
 								/>
 								<div className="container">
-									<b>{message.senderName}</b>
-									<span
-										style={{
-											color: "rgb(215, 183, 2)",
-											wordBreak: "break-word"
-										}}>
-										{message.text}
-									</span>
+									<div className="textMessage">
+										<b>{message.senderName}</b>
+										<span
+											style={{
+												color: "rgb(215, 183, 2)",
+												wordBreak: "break-word"
+											}}>
+											{message.text}
+										</span>
+									</div>
+									<div className="dateMessage">
+										<p>{formatDate(message.sent_at)}</p>
+									</div>
 								</div>
 							</div>
 						))}

@@ -32,7 +32,11 @@ export default function Index() {
 						<img
 							src="/default.png"
 							//src={profile.img}
-							style={{ width: "10vw", margin: "2vh" }}
+							style={{
+								width: "10vw",
+								margin: "2vh",
+								borderRadius: "25px"
+							}}
 						/>
 						<div className="infoPerso">
 							<div className="infoPersoChild">

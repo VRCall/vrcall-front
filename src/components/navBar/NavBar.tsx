@@ -4,6 +4,7 @@ import "./NavBar.scss";
 import { FaUserFriends } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { ImExit } from "react-icons/im";
+import QuickCall from "../call/quickCall";
 
 export default function NavBar() {
 	const navigate = useNavigate();
@@ -43,6 +44,7 @@ export default function NavBar() {
 					</div>
 					<p className="linkText">Profile</p>
 				</Link>
+				<QuickCall roomId={"your-room-id"} />
 			</div>
 			<button
 				className="disconnectButton"

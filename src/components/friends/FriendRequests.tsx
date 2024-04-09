@@ -7,11 +7,9 @@ import {
 } from "../../services/getFriendRequest";
 import { acceptRequest } from "../../services/addFriends";
 import "./friendReq.scss";
+import { Socket } from "socket.io-client";
 
-export default function FriendRequests(
-	{ friendRequest },
-	{ friendRequest: any }
-) {
+export default function FriendRequests({ socket }: { socket: Socket }) {
 	const [friendRequest, setFriendRequest] = useState<
 		FriendRequest[] | undefined
 	>([]);
@@ -25,6 +23,11 @@ export default function FriendRequests(
 				return console.error(e);
 			});
 	}, []);
+
+	//FIXME: not receiving data :/
+	socket.on("send-notification", (data) => {
+		console.log("update friend request list ", data);
+	});
 
 	return (
 		<div className="friend-requests-container">
@@ -59,7 +62,8 @@ export default function FriendRequests(
 													onClick={() =>
 														acceptRequest(
 															friendRequest.friendship_id,
-															true
+															true,
+															setFriendRequest
 														)
 													}>
 													<IoMdCheckmark />
@@ -70,7 +74,8 @@ export default function FriendRequests(
 													onClick={() =>
 														acceptRequest(
 															friendRequest.friendship_id,
-															false
+															false,
+															setFriendRequest
 														)
 													}>
 													<RxCross2 />

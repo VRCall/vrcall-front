@@ -1,21 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { addFriend } from "../../services/addFriends";
 import "./addFriends.scss";
-import { Socket, io } from "socket.io-client";
+import { Socket } from "socket.io-client";
 
-const socket: Socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
-
-export const AddFriends: React.FC = ({
-	setFriendRequest,
-	friendRequest
-}: {
-	setFriendRequest: any;
-	friendRequest: any;
-}) => {
+export const AddFriends = ({ socket }: { socket: Socket }) => {
 	const [friendName, setFriendName] = useState<string>("");
 
 	const handleAddFriend = async () => {
@@ -34,7 +22,7 @@ export const AddFriends: React.FC = ({
 			};
 
 			socket.emit("send-friend-request", NotificationData);
-			setFriendRequest(!friendRequest);
+			//socket.emit("update-friend-request", { receiver: friendName });
 			return;
 		}
 	};

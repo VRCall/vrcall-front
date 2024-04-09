@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { FriendRequest } from "./getFriendRequest";
 
 export const addFriend = async (friendName: string) => {
 	try {
@@ -27,7 +29,11 @@ export const addFriend = async (friendName: string) => {
 	}
 };
 
-export const acceptRequest = async (id: string, accept: boolean) => {
+export const acceptRequest = async (
+	id: string,
+	accept: boolean,
+	setFriendRequest: Dispatch<SetStateAction<FriendRequest[] | undefined>>
+) => {
 	const token = localStorage.getItem("token");
 	try {
 		const response = await axios.patch(
@@ -41,7 +47,7 @@ export const acceptRequest = async (id: string, accept: boolean) => {
 		);
 
 		if (response.status === 200) {
-			return response.data;
+			setFriendRequest([]);
 		} else {
 			console.error("Error accepting request:", response.data.message);
 			return null;

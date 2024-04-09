@@ -1,15 +1,18 @@
-import { Socket } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 import { getProfile } from "../services/getProfile";
 import { toast } from "react-toastify";
 
-export const notifications = (socket: Socket) => {
+const socket: Socket = io(`${import.meta.env.VITE_API_URL}`, {
+	extraHeaders: {
+		"ngrok-skip-browser-warning": "true"
+	}
+});
+
+export const notifications = () => {
 	try {
 		getProfile().then((data) => {
 			socket.emit("join-notification", data!.pseudo);
 			socket.on("send-notification", (data) => {
-				console.log("Notification sent");
-				console.log(data);
-
 				const notif = () =>
 					toast(data.text, {
 						position: "top-right",

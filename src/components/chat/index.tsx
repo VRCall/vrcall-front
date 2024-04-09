@@ -190,7 +190,7 @@ export default function ChatFriend() {
 										<b>{message.senderName}</b>
 										<span
 											style={{
-												color: "light-grey",
+												color: "lightgrey",
 												wordBreak: "break-word"
 											}}>
 											{message.text}

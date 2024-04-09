@@ -16,21 +16,24 @@ export const AddFriends: React.FC = () => {
 	};
 
 	return (
-		<div className="add-friends-container">
+		<>
 			<h1 className="add-friends-title">Add Friends</h1>
-			<input
-				type="text"
-				className="add-friends-input"
-				placeholder="Enter friend name"
-				value={friendName}
-				onChange={(e) => setFriendName(e.target.value)}
-			/>
-			<button
-				className="add-friends-button"
-				onClick={() => handleAddFriend()}>
-				Enregistrer
-			</button>
-		</div>
+			<div className="add-friends-container">
+				<input
+					type="text"
+					className="add-friends-input"
+					placeholder="Enter friend name"
+					value={friendName}
+					onChange={(e) => setFriendName(e.target.value)}
+				/>
+
+				<button
+					className="add-friends-button"
+					onClick={() => handleAddFriend()}>
+					Enregistrer
+				</button>
+			</div>
+		</>
 	);
 };
 

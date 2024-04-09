@@ -14,7 +14,7 @@
 		border-radius: 3px;
 		font-size: 1em;
 		margin-bottom: 10px;
-		height: 5vh;
+		height: 6vh;
 
 		&:hover {
 			background-color: rgb(28, 86, 128);
@@ -23,7 +23,7 @@
 	}
 
 	.petitePP {
-		width: 35px;
+		height: 100%;
 		margin-right: 1vh;
 	}
 
@@ -34,6 +34,6 @@
 		align-items: center;
 		width: 100%;
 		justify-content: flex-start;
-		padding: 5px;
+		padding: 5px 0;
 	}
 }

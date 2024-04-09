@@ -4,17 +4,24 @@ import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
 import { getCurrentUser } from "../../services/chat";
+import { checkFriendship } from "../../services/checkFriendship";
+import { MdCallEnd } from "react-icons/md";
+import {
+	BsFillCameraVideoFill,
+	BsFillCameraVideoOffFill
+} from "react-icons/bs";
+import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
 
 type CallProps = {
 	socket: Socket;
 };
 
 export default function Index({ socket }: CallProps) {
-	const [peerId, setPeerId] = useState("");
-	const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
 	const remoteVideoRef = useRef(null);
 	const currentUserVideoRef = useRef(null);
 	const [localStream, setLocalStream] = useState<MediaStream>();
+	const [audio, setAudio] = useState<boolean>(true);
+	const [video, setVideo] = useState<boolean>(true);
 	const peerInstance = useRef(null);
 
 	const { roomId } = useParams();
@@ -26,12 +33,21 @@ export default function Index({ socket }: CallProps) {
 		socket.emit("join-room", `call-${roomId}`, id);
 	};
 
+	const fetchData = async () => {
+		try {
+			await checkFriendship(roomId);
+		} catch (error) {
+			console.error("Error checking friendship:", error);
+			window.close();
+		}
+	};
+
 	useEffect(() => {
+		fetchData();
 		const peer = new Peer();
 
 		peer.on("open", (id) => {
 			getUser(id);
-			setPeerId(id);
 		});
 
 		peer.on("call", (call) => {
@@ -91,6 +107,7 @@ export default function Index({ socket }: CallProps) {
 			.find((track) => track.kind === "video");
 
 		videoTrack!.enabled = !videoTrack?.enabled;
+		setVideo(!video);
 	};
 
 	const toggleMic = () => {
@@ -99,13 +116,15 @@ export default function Index({ socket }: CallProps) {
 			.find((track) => track.kind === "audio");
 
 		audioTrack!.enabled = !audioTrack?.enabled;
+		setAudio(!audio);
+	};
+
+	const toggleDisconnect = () => {
+		window.close();
 	};
 
 	return (
 		<div className="App">
-			{/* <h1>Current user id is {peerId}</h1>
-          <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
-          <button onClick={() => call(remotePeerIdValue)}>Call</button> */}
 			<div className="container">
 				<div className="video-container">
 					<video
@@ -119,8 +138,23 @@ export default function Index({ socket }: CallProps) {
 				</div>
 			</div>
 			<div className="button-container">
-				<button onClick={toggleCamera}>Camera</button>
-				<button onClick={toggleMic}>Audio</button>
+				<button className="camera" onClick={toggleCamera}>
+					{video ? (
+						<BsFillCameraVideoFill className="iconcam" />
+					) : (
+						<BsFillCameraVideoOffFill className="iconcam" />
+					)}
+				</button>
+				<button className="micro" onClick={toggleMic}>
+					{audio ? (
+						<PiMicrophoneFill className="iconmic" />
+					) : (
+						<PiMicrophoneSlashFill className="iconmic" />
+					)}
+				</button>
+				<button className="raccrocher" onClick={toggleDisconnect}>
+					<MdCallEnd className="iconracc" />
+				</button>
 			</div>
 		</div>
 	);

@@ -151,7 +151,7 @@ export default function ChatFriend() {
 						</button>
 					</Link>
 					<Link
-						to={`/call/${id}`}
+						to={`/three`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

@@ -3,11 +3,11 @@ import { RigidBody } from "@react-three/rapier";
 
 export default function Map() {
 	return (
-		<RigidBody type="fixed" colliders="trimesh" ccd>
+		<RigidBody type="fixed" colliders="cuboid" ccd>
 			<group dispose={null}>
-				<group rotation={[-Math.PI / 2, 0, 0]} scale={11}>
+				<group>
 					<mesh>
-						<planeGeometry />
+						<boxGeometry args={[10, 0.5, 10]} />
 						<meshBasicMaterial color={"red"} />
 					</mesh>
 				</group>

@@ -1,42 +1,27 @@
 import { Canvas } from "@react-three/fiber";
-import { KeyboardControls } from "@react-three/drei";
 import Experience from "./Experience";
 import "./index.scss";
 
 import socketIO, { Socket } from "socket.io-client";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCurrentUser } from "../../services/chat";
-import Peer from "peerjs";
-import Environment from "./Environment";
+import Peer, { DataConnection } from "peerjs";
 
-const socket: Socket = socketIO(import.meta.env.VITE_API_URL, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
+const socket: Socket = socketIO(import.meta.env.VITE_API_URL);
 
 export default function Index() {
-	const [peerId, setPeerId] = useState("");
-	const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
 	const [localStream, setLocalStream] = useState<MediaStream>();
 	const [remoteStream, setRemoteStream] = useState<MediaStream>();
-	const peerInstance = useRef(null);
+	const peerInstance = useRef<Peer>(null);
+	const [dataConnection, setDataConnection] = useState<DataConnection>();
 
 	const { roomId } = useParams();
-
-	const getUser = async (id: string) => {
-		const user = await getCurrentUser();
-		console.log(user);
-		socket.emit("join-room", roomId, id);
-	};
 
 	useEffect(() => {
 		const peer = new Peer();
 
 		peer.on("open", (id) => {
-			getUser(id);
-			setPeerId(id);
+			socket.emit("join-room", roomId, id);
 		});
 
 		peer.on("call", (call) => {
@@ -48,13 +33,44 @@ export default function Index() {
 					call.on("stream", (remoteStream: MediaStream) => {
 						setRemoteStream(remoteStream);
 					});
+
+					let dataConnectionTemp = peerInstance.current.connect(
+						call.peer
+					);
+					dataConnectionTemp?.on("open", () => {
+						console.log("daat connection open");
+						setDataConnection(dataConnectionTemp);
+					});
 				});
+		});
+
+		peer.on("connection", (conn) => {
+			setDataConnection(conn);
 		});
 		peerInstance.current = peer;
 
 		socket.on("user-connected", (userId: string) => {
 			call(userId);
 		});
+
+		dataConnection?.on("open", () => {
+			console.log("daat connection open");
+			dataConnection?.on("data", (data: any) => {
+				console.log(data);
+			});
+		});
+
+		setInterval(() => {
+			dataConnection?.send("Hello World!");
+		}, 1000);
+
+		dataConnection?.on("data", (data: any) => {
+			console.log(data);
+		});
+
+		return () => {
+			peer.destroy();
+		};
 	}, []);
 
 	const call = (remotePeerId: string) => {
@@ -62,19 +78,23 @@ export default function Index() {
 			.getUserMedia({ video: true, audio: true })
 			.then((stream: MediaStream) => {
 				setLocalStream(stream);
-				console.log(localStream);
 
 				const call = peerInstance.current.call(remotePeerId, stream);
 
 				call.on("stream", (remoteStream: MediaStream) => {
 					setRemoteStream(remoteStream);
 				});
+
+				let dataConnectionTemp =
+					peerInstance.current.connect(remotePeerId);
+				dataConnectionTemp?.on("open", () => {
+					console.log("daat connection open");
+					setDataConnection(dataConnectionTemp);
+				});
 			});
 	};
 
 	const toggleCamera = () => {
-		console.log(localStream);
-
 		let videoTrack = localStream
 			.getTracks()
 			.find((track) => track.kind === "video");
@@ -91,27 +111,47 @@ export default function Index() {
 	};
 
 	return (
-		<div className="canvas-div">
-			<Canvas
-				onPointerDown={(e) => {
-					if (e.pointerType === "mouse") {
-						(e.target as HTMLCanvasElement).requestPointerLock();
-					}
-				}}>
-				<Environment />
-				{/* <Experience
-					localStream={localStream}
-					remoteStream={remoteStream}
-				/> */}
-				<Experience
-					localStream={localStream}
-					remoteStream={remoteStream}
-				/>
-			</Canvas>
-			<div style={{ position: "absolute", left: "50%", top: "90%" }}>
-				<button onClick={toggleCamera}>Camera</button>
-				<button onClick={toggleMic}>Audio</button>
-			</div>
+		<div
+			className="canvas-div"
+			style={{ position: dataConnection ? "fixed" : "initial" }}>
+			{dataConnection ? (
+				<>
+					<Canvas
+						onPointerDown={(e) => {
+							if (e.pointerType === "mouse") {
+								(
+									e.target as HTMLCanvasElement
+								).requestPointerLock();
+							}
+						}}>
+						{/* <Environment /> */}
+						<Experience
+							localStream={localStream}
+							remoteStream={remoteStream}
+							dataConnection={dataConnection}
+						/>
+					</Canvas>
+					<div
+						style={{
+							position: "absolute",
+							left: "50%",
+							top: "90%"
+						}}>
+						<button onClick={toggleCamera}>Camera</button>
+						<button onClick={toggleMic}>Audio</button>
+					</div>
+				</>
+			) : (
+				<div
+					style={{
+						position: "absolute",
+						left: "50%",
+						top: "50%",
+						transform: "translate(-50%, -50%)"
+					}}>
+					En attente du correpondant...
+				</div>
+			)}
 		</div>
 	);
 }

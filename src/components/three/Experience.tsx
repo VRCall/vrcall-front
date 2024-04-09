@@ -6,19 +6,23 @@ import {
 } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import React, { Suspense, useEffect, useRef } from "react";
+import Environment from "./Environment";
+import { DataConnection } from "peerjs";
+import { useFrame } from "@react-three/fiber";
 
 type ExperienceProps = {
 	localStream: MediaStream;
 	remoteStream: MediaStream;
+	dataConnection: DataConnection;
 };
 
 export default function Experience({
 	localStream,
-	remoteStream
+	remoteStream,
+	dataConnection
 }: ExperienceProps) {
 	const localRef = useRef(null);
 	const remoteRef = useRef(null);
-	//const plane = useRef(null);
 
 	useEffect(() => {
 		if (localRef.current && localStream && !localRef.current.srcObject) {
@@ -32,31 +36,9 @@ export default function Experience({
 		}
 	}, [localStream, remoteStream]);
 
-	const addLocalVideo = () => {
-		console.log("local");
-
-		localRef.current.srcObject = localStream;
-		localRef.current.play();
-	};
-
-	const addRemoteVideo = () => {
-		console.log("remote");
-
-		remoteRef.current.srcObject = remoteStream;
-		remoteRef.current.play();
-	};
-
 	return (
 		<>
 			<Perf position={"top-left"} />
-
-			{/* <OrbitControls makeDefault /> */}
-			{/* <PointerLockControls /> */}
-
-			{/* <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
-                <planeGeometry />
-                <meshBasicMaterial ref={ plane } color={"green"} />
-            </mesh> */}
 
 			<mesh position={[3, 2.5, -3]} scale={5}>
 				<planeGeometry />
@@ -70,6 +52,8 @@ export default function Experience({
 					<VideoMaterial src={remoteStream} type={"remote"} />
 				</Suspense>
 			</mesh>
+
+			<Environment dataConnection={dataConnection} />
 		</>
 	);
 }

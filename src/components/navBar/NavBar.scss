@@ -38,11 +38,13 @@
 		justify-content: center;
 	}
 }
+
 .links:first-child {
 	margin-top: 10px;
 }
+
 .linksMessages {
-	height: 69%;
+	height: 64%;
 	width: 90%;
 
 	.messages {
@@ -50,6 +52,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+
+		h2 {
+			border-bottom: 2px solid rgb(215, 183, 2);
+		}
 	}
 }
 

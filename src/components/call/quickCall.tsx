@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { FaVideo } from "react-icons/fa";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { BsCameraVideoFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 import { useLocation } from "react-router-dom";
+import "../navBar/NavBar.scss";
 
 const QuickCall = () => {
 	const [roomId, setRoomId] = useState(uuidv4());
@@ -22,16 +23,18 @@ const QuickCall = () => {
 	console.log(window.location.origin);
 
 	return (
-		<div>
+		<>
 			<CopyToClipboard
 				text={`${window.location.origin}/call/${roomId}?camera=true`}
 				onCopy={handleCopy}>
-				<button onClick={handleRegenerate}>
-					<FaVideo />
-					<span>Quick Call</span>
-				</button>
+				<a className={"links"}>
+					<div onClick={handleRegenerate} className="linkIcon">
+						<BsCameraVideoFill />
+					</div>
+					<p className="linkText">QuickCall</p>
+				</a>
 			</CopyToClipboard>
-		</div>
+		</>
 	);
 };
 

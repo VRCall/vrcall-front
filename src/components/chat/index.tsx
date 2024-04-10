@@ -14,11 +14,7 @@ import { FiPhoneCall } from "react-icons/fi";
 import { PiVideoCameraBold } from "react-icons/pi";
 import { BsBadgeVr } from "react-icons/bs";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
+const socket = io(`${import.meta.env.VITE_API_URL}`);
 
 export default function ChatFriend() {
 	const [messages, setMessages] = useState<Message[]>([]);

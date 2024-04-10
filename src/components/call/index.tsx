@@ -26,12 +26,6 @@ export default function Index({ socket }: CallProps) {
 
 	const { roomId } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
-	console.log(searchParams.get("camera"));
-
-	const getUser = async (id: string) => {
-		const user = await getCurrentUser();
-		socket.emit("join-room", `call-${roomId}`, id);
-	};
 
 	const fetchData = async () => {
 		try {
@@ -47,7 +41,7 @@ export default function Index({ socket }: CallProps) {
 		const peer = new Peer();
 
 		peer.on("open", (id) => {
-			getUser(id);
+			socket.emit("join-room", `call-${roomId}`, id);
 		});
 
 		peer.on("call", (call) => {
@@ -72,6 +66,8 @@ export default function Index({ socket }: CallProps) {
 		peerInstance.current = peer;
 
 		socket.on("user-connected", (userId: string) => {
+			console.log("user joined your room");
+
 			call(userId);
 		});
 
@@ -94,7 +90,7 @@ export default function Index({ socket }: CallProps) {
 
 				const call = peerInstance.current.call(remotePeerId, stream);
 
-				call.on("stream", (remoteStream) => {
+				call.on("stream", (remoteStream: MediaStream) => {
 					remoteVideoRef.current.srcObject = remoteStream;
 					remoteVideoRef.current.play();
 				});

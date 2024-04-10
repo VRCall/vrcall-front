@@ -1,8 +1,9 @@
-import { KeyboardControls } from "@react-three/drei";
+import { KeyboardControls, useVideoTexture } from "@react-three/drei";
 import Ecctrl from "ecctrl";
 import { DataConnection } from "peerjs";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Socket } from "socket.io-client";
+import { DoubleSide } from "three";
 
 const keyboardMap = [
 	{ name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -15,9 +16,13 @@ const keyboardMap = [
 
 type EnvironmentProps = {
 	socket: Socket;
+	remoteStream: MediaStream;
 };
 
-export default function CharacterModel({ socket }: EnvironmentProps) {
+export default function CharacterModel({
+	socket,
+	remoteStream
+}: EnvironmentProps) {
 	const character = useRef(null);
 	const [position, setPosition] = useState([0, 1, 2]);
 
@@ -49,10 +54,32 @@ export default function CharacterModel({ socket }: EnvironmentProps) {
 					</mesh>
 				</Ecctrl>
 			</KeyboardControls>
-			<mesh position={position}>
-				<capsuleGeometry />
-				<meshBasicMaterial />
-			</mesh>
+			<group position={position}>
+				{/* <mesh>
+					<capsuleGeometry />
+					<meshBasicMaterial />
+				</mesh> */}
+				<mesh scale={3}>
+					<planeGeometry />
+					<Suspense fallback={null}>
+						<VideoMaterial src={remoteStream} type={"remote"} />
+					</Suspense>
+				</mesh>
+			</group>
 		</>
+	);
+}
+
+type VideoMaterialProps = {
+	src: MediaStream;
+	type: string;
+};
+
+function VideoMaterial({ src, type }: VideoMaterialProps) {
+	const texture = useVideoTexture(src, {
+		muted: type === "local"
+	});
+	return (
+		<meshBasicMaterial side={DoubleSide} map={texture} toneMapped={false} />
 	);
 }

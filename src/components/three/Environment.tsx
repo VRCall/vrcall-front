@@ -6,14 +6,21 @@ import { Socket } from "socket.io-client";
 
 type EnvironmentProps = {
 	socket: Socket;
+	remoteStream: MediaStream;
 };
 
-export default function Environment({ socket }: EnvironmentProps) {
+export default function Environment({
+	socket,
+	remoteStream
+}: EnvironmentProps) {
 	return (
 		<>
 			<Physics timeStep={"vary"}>
 				<Suspense fallback={null}>
-					<CharacterModel socket={socket} />
+					<CharacterModel
+						socket={socket}
+						remoteStream={remoteStream}
+					/>
 				</Suspense>
 				<Map />
 			</Physics>

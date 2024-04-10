@@ -10,7 +10,6 @@ import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
 import Call from "./pages/Call";
 import Three from "./pages/Three";
-import { io } from "socket.io-client";
 import { notifications } from "./utils/notification";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,17 +1,21 @@
 import React from "react";
 import { RigidBody } from "@react-three/rapier";
+import { Sky } from "@react-three/drei";
 
 export default function Map() {
 	return (
-		<RigidBody type="fixed" colliders="cuboid" ccd>
-			<group dispose={null}>
-				<group>
-					<mesh>
-						<boxGeometry args={[10, 0.5, 10]} />
-						<meshBasicMaterial color={"red"} />
-					</mesh>
+		<>
+			<RigidBody type="fixed" colliders="cuboid" ccd>
+				<group dispose={null}>
+					<group>
+						<mesh position-y={-1}>
+							<boxGeometry args={[25, 1, 25]} />
+							<meshBasicMaterial color={"red"} />
+						</mesh>
+					</group>
 				</group>
-			</group>
-		</RigidBody>
+			</RigidBody>
+			<Sky />
+		</>
 	);
 }

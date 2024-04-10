@@ -1,25 +1,20 @@
-import {
-	PointerLockControls,
-	OrbitControls,
-	Html,
-	useVideoTexture
-} from "@react-three/drei";
+import { useVideoTexture } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import React, { Suspense, useEffect, useRef } from "react";
 import Environment from "./Environment";
 import { DataConnection } from "peerjs";
-import { useFrame } from "@react-three/fiber";
+import { Socket } from "socket.io-client";
 
 type ExperienceProps = {
 	localStream: MediaStream;
 	remoteStream: MediaStream;
-	dataConnection: DataConnection;
+	socket: Socket;
 };
 
 export default function Experience({
 	localStream,
 	remoteStream,
-	dataConnection
+	socket
 }: ExperienceProps) {
 	const localRef = useRef(null);
 	const remoteRef = useRef(null);
@@ -40,12 +35,12 @@ export default function Experience({
 		<>
 			<Perf position={"top-left"} />
 
-			<mesh position={[3, 2.5, -3]} scale={5}>
+			{/* <mesh position={[3, 2.5, -3]} scale={5}>
 				<planeGeometry />
 				<Suspense fallback={null}>
 					<VideoMaterial src={localStream} type={"local"} />
 				</Suspense>
-			</mesh>
+			</mesh> */}
 			<mesh position={[-3, 2.5, -3]} scale={5}>
 				<planeGeometry />
 				<Suspense fallback={null}>
@@ -53,7 +48,7 @@ export default function Experience({
 				</Suspense>
 			</mesh>
 
-			<Environment dataConnection={dataConnection} />
+			<Environment socket={socket} />
 		</>
 	);
 }

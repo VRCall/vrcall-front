@@ -1,8 +1,8 @@
 import { KeyboardControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import Ecctrl from "ecctrl";
 import { DataConnection } from "peerjs";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Socket } from "socket.io-client";
 
 const keyboardMap = [
 	{ name: "forward", keys: ["ArrowUp", "KeyW"] },
@@ -14,29 +14,20 @@ const keyboardMap = [
 ];
 
 type EnvironmentProps = {
-	dataConnection: DataConnection;
+	socket: Socket;
 };
 
-export default function CharacterModel({ dataConnection }: EnvironmentProps) {
+export default function CharacterModel({ socket }: EnvironmentProps) {
 	const character = useRef(null);
-	const remoteCharacter = useRef(null);
-
-	useFrame(() => {
-		if (dataConnection.open) {
-			//dataConnection.send(character.current.translation())
-			//console.log("sending data");
-		}
-	});
+	const [position, setPosition] = useState([0, 1, 2]);
 
 	useEffect(() => {
-		console.log(dataConnection);
+		setInterval(() => {
+			socket.emit("position", character.current.translation());
+		}, 32);
 
-		dataConnection.on("data", (data) => {
-			console.log(data);
-			//remoteCharacter.current.position.set(new Vector3({x: data.x, y: data.y, z: data.z}))
-		});
-		dataConnection?.on("open", () => {
-			console.log("daaaaat connection open");
+		socket.on("remote-position", (data) => {
+			setPosition([data.x, data.y, data.z]);
 		});
 	}, []);
 
@@ -46,11 +37,11 @@ export default function CharacterModel({ dataConnection }: EnvironmentProps) {
 				<Ecctrl
 					ref={character}
 					// debug
-					// camInitDis={ -0.01 }
-					// camMinDis={ -0.01 }
-					// camFollowMult={ 100 }
-					// turnVelMultiplier={ 1 }
-					// turnSpeed={ 100 }
+					camInitDis={-0.01}
+					camMinDis={-0.01}
+					camFollowMult={100}
+					turnVelMultiplier={1}
+					turnSpeed={100}
 					mode="cameraBasedMovement">
 					<mesh position={[0, 1, 0]}>
 						<capsuleGeometry />
@@ -58,7 +49,7 @@ export default function CharacterModel({ dataConnection }: EnvironmentProps) {
 					</mesh>
 				</Ecctrl>
 			</KeyboardControls>
-			<mesh ref={remoteCharacter}>
+			<mesh position={position}>
 				<capsuleGeometry />
 				<meshBasicMaterial />
 			</mesh>

@@ -5,7 +5,13 @@ import "./index.scss";
 import socketIO, { Socket } from "socket.io-client";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Peer, { DataConnection } from "peerjs";
+import Peer from "peerjs";
+import {
+	BsFillCameraVideoFill,
+	BsFillCameraVideoOffFill
+} from "react-icons/bs";
+import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
+import { MdCallEnd } from "react-icons/md";
 
 const socket: Socket = socketIO(import.meta.env.VITE_API_URL);
 
@@ -13,7 +19,9 @@ export default function Index() {
 	const [localStream, setLocalStream] = useState<MediaStream>();
 	const [remoteStream, setRemoteStream] = useState<MediaStream>();
 	const peerInstance = useRef<Peer>(null);
-	const [dataConnection, setDataConnection] = useState<DataConnection>();
+	const currentUserVideoRef = useRef(null);
+	const [audio, setAudio] = useState<boolean>(true);
+	const [video, setVideo] = useState<boolean>(true);
 
 	const { roomId } = useParams();
 
@@ -29,43 +37,19 @@ export default function Index() {
 				.getUserMedia({ video: true, audio: true })
 				.then((stream: MediaStream) => {
 					setLocalStream(stream);
+					currentUserVideoRef.current.srcObject = stream;
+					currentUserVideoRef.current.play();
 					call.answer(stream);
 					call.on("stream", (remoteStream: MediaStream) => {
 						setRemoteStream(remoteStream);
 					});
-
-					let dataConnectionTemp = peerInstance.current.connect(
-						call.peer
-					);
-					dataConnectionTemp?.on("open", () => {
-						console.log("daat connection open");
-						setDataConnection(dataConnectionTemp);
-					});
 				});
 		});
 
-		peer.on("connection", (conn) => {
-			setDataConnection(conn);
-		});
 		peerInstance.current = peer;
 
 		socket.on("user-connected", (userId: string) => {
 			call(userId);
-		});
-
-		dataConnection?.on("open", () => {
-			console.log("daat connection open");
-			dataConnection?.on("data", (data: any) => {
-				console.log(data);
-			});
-		});
-
-		setInterval(() => {
-			dataConnection?.send("Hello World!");
-		}, 1000);
-
-		dataConnection?.on("data", (data: any) => {
-			console.log(data);
 		});
 
 		return () => {
@@ -78,18 +62,13 @@ export default function Index() {
 			.getUserMedia({ video: true, audio: true })
 			.then((stream: MediaStream) => {
 				setLocalStream(stream);
+				currentUserVideoRef.current.srcObject = stream;
+				currentUserVideoRef.current.play();
 
 				const call = peerInstance.current.call(remotePeerId, stream);
 
 				call.on("stream", (remoteStream: MediaStream) => {
 					setRemoteStream(remoteStream);
-				});
-
-				let dataConnectionTemp =
-					peerInstance.current.connect(remotePeerId);
-				dataConnectionTemp?.on("open", () => {
-					console.log("daat connection open");
-					setDataConnection(dataConnectionTemp);
 				});
 			});
 	};
@@ -100,6 +79,7 @@ export default function Index() {
 			.find((track) => track.kind === "video");
 
 		videoTrack!.enabled = !videoTrack?.enabled;
+		setVideo(!video);
 	};
 
 	const toggleMic = () => {
@@ -108,50 +88,51 @@ export default function Index() {
 			.find((track) => track.kind === "audio");
 
 		audioTrack!.enabled = !audioTrack?.enabled;
+		setAudio(!audio);
 	};
 
 	return (
 		<div
 			className="canvas-div"
-			style={{ position: dataConnection ? "fixed" : "initial" }}>
-			{dataConnection ? (
-				<>
-					<Canvas
-						onPointerDown={(e) => {
-							if (e.pointerType === "mouse") {
-								(
-									e.target as HTMLCanvasElement
-								).requestPointerLock();
-							}
-						}}>
-						{/* <Environment /> */}
-						<Experience
-							localStream={localStream}
-							remoteStream={remoteStream}
-							dataConnection={dataConnection}
-						/>
-					</Canvas>
-					<div
-						style={{
-							position: "absolute",
-							left: "50%",
-							top: "90%"
-						}}>
-						<button onClick={toggleCamera}>Camera</button>
-						<button onClick={toggleMic}>Audio</button>
-					</div>
-				</>
-			) : (
-				<div
-					style={{
-						position: "absolute",
-						left: "50%",
-						top: "50%",
-						transform: "translate(-50%, -50%)"
+			style={{ position: true ? "fixed" : "initial" }}>
+			<Canvas
+				onPointerDown={(e) => {
+					if (e.pointerType === "mouse") {
+						(e.target as HTMLCanvasElement).requestPointerLock();
+					}
+				}}>
+				<Experience
+					localStream={localStream}
+					remoteStream={remoteStream}
+					socket={socket}
+				/>
+			</Canvas>
+			<div className="video-container">
+				<video className="video self" muted ref={currentUserVideoRef} />
+			</div>
+			<div className="button-container">
+				<button className="camera" onClick={toggleCamera}>
+					{video ? (
+						<BsFillCameraVideoFill className="iconcam" />
+					) : (
+						<BsFillCameraVideoOffFill className="iconcam" />
+					)}
+				</button>
+				<button className="micro" onClick={toggleMic}>
+					{audio ? (
+						<PiMicrophoneFill className="iconmic" />
+					) : (
+						<PiMicrophoneSlashFill className="iconmic" />
+					)}
+				</button>
+				<button
+					className="raccrocher"
+					onClick={() => {
+						window.close();
 					}}>
-					En attente du correpondant...
-				</div>
-			)}
+					<MdCallEnd className="iconracc" />
+				</button>
+			</div>
 		</div>
 	);
 }

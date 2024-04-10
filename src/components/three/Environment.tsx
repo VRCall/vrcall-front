@@ -2,18 +2,18 @@ import React, { Suspense } from "react";
 import { Physics } from "@react-three/rapier";
 import CharacterModel from "./CharacterModel";
 import Map from "./Map";
-import { DataConnection } from "peerjs";
+import { Socket } from "socket.io-client";
 
 type EnvironmentProps = {
-	dataConnection: DataConnection;
+	socket: Socket;
 };
 
-export default function Environment({ dataConnection }: EnvironmentProps) {
+export default function Environment({ socket }: EnvironmentProps) {
 	return (
 		<>
 			<Physics timeStep={"vary"}>
 				<Suspense fallback={null}>
-					<CharacterModel dataConnection={dataConnection} />
+					<CharacterModel socket={socket} />
 				</Suspense>
 				<Map />
 			</Physics>

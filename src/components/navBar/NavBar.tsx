@@ -44,7 +44,6 @@ export default function NavBar() {
 					</div>
 					<p className="linkText">Profile</p>
 				</Link>
-
 				<QuickCall />
 			</div>
 			<button

@@ -31,14 +31,8 @@ function App() {
 	);
 }
 
-const socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
-
 function CustomLayout() {
-	notifications(socket);
+	notifications();
 	return (
 		<div className="layout">
 			<ToastContainer />

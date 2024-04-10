@@ -2,13 +2,13 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 2%;
 }
 
 .friend-requests-title {
 	font-size: 24px;
 	margin-bottom: 20px;
 	color: white;
+	border-bottom: 2px solid rgb(215, 183, 2);
 }
 
 .friend-request-list {
@@ -25,15 +25,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
 
-.friend-request-details-img {
-	justify-content: flex-start;
-}
+	.friend-request-details-img {
+		justify-content: flex-start;
+	}
 
-.friend-request-buttons-container {
-	flex-direction: row;
-	justify-content: flex-end;
+	.friend-request-buttons-container {
+		flex-direction: row;
+		justify-content: flex-end;
+	}
 }
 
 .friend-request-item {
@@ -79,6 +79,7 @@
 	margin-left: 10px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+
 	&:hover {
 		background-color: #0a2c3f;
 	}

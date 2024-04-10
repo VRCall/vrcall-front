@@ -4,6 +4,7 @@ export interface Message {
 	id: string;
 	text: string;
 	senderName: string;
+	sent_at: Date;
 }
 
 interface GetMessagesResponse {
@@ -37,6 +38,7 @@ export const getMessages = async (id: string): Promise<Message[]> => {
 export const sendMessage = async (data: {
 	text: string;
 	friendship_id: string;
+	sent_at: Date;
 }): Promise<Message> => {
 	try {
 		const response = await axios.post<Message>(

@@ -5,19 +5,21 @@
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-	background-color: rgb(141, 141, 141);
+	background-color: #4c5f7a;
 
 	.headerChat {
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		height: 11%;
+		height: 12%;
 		background-color: #0c3451;
 
 		.headerG {
 			border-left: 2px solid rgb(215, 183, 2);
+			display: flex;
 			width: 50%;
 			margin: 1em;
+			align-items: center;
 		}
 		.headerG h1 {
 			margin: auto auto auto 0.5em;
@@ -36,13 +38,13 @@
 		.btn3D {
 			margin: auto 0.5em;
 			width: 45px;
-			border: none;
 			padding: 0.4em 0 0 0;
 			border-radius: 4px;
 			height: 45px;
 			background-color: #1d415c;
 			color: whitesmoke;
 			cursor: pointer;
+			border: 1px solid rgb(215, 183, 2);
 
 			&:hover {
 				background-color: rgb(28, 86, 128);
@@ -54,7 +56,6 @@
 	.chat-input {
 		width: 100%;
 		height: 88%;
-		margin-top: 10px;
 		overflow-y: auto;
 	}
 
@@ -80,14 +81,27 @@
 
 		.container {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			margin-left: 0.2rem;
+			justify-content: space-between;
+		}
+
+		.textMessage {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.dateMessage {
+			display: flex;
+			font-style: italic;
+			font-size: x-small;
+			align-items: flex-end;
 		}
 	}
 
 	.petitePP {
 		width: 35px;
-		margin-right: 1vh;
+		margin: auto 1vh auto 0;
 	}
 
 	.message-input {
@@ -103,19 +117,21 @@
 			border-radius: 5px;
 			margin-right: 10px;
 			outline: none;
+			background-color: whitesmoke;
 		}
 
 		button {
 			padding: 10px 20px;
 			border: none;
-			background-color: #367fff;
+			background-color: #1d415c;
+			border: 2px solid rgb(215, 183, 2);
 			color: white;
 			border-radius: 5px;
 			cursor: pointer;
 			transition: background-color 0.3s ease;
 
 			&:hover {
-				background-color: #2272ff;
+				background-color: rgb(28, 86, 128);
 			}
 		}
 	}

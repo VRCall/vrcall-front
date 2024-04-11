@@ -15,7 +15,7 @@ export default function Environment({
 }: EnvironmentProps) {
 	return (
 		<>
-			<Physics debug timeStep={"vary"}>
+			<Physics timeStep={"vary"}>
 				<Suspense fallback={null}>
 					<CharacterModel
 						socket={socket}

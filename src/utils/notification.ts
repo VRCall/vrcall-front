@@ -2,11 +2,7 @@ import { Socket, io } from "socket.io-client";
 import { getProfile } from "../services/getProfile";
 import { toast } from "react-toastify";
 
-const socket: Socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
+const socket: Socket = io(`${import.meta.env.VITE_API_URL}`);
 
 export const notifications = () => {
 	try {
@@ -26,15 +22,33 @@ export const notifications = () => {
 					});
 
 				switch (data.type) {
-					case "message":
-						notif();
+					case "message": {
+						const location = window.location.pathname.split("/");
+						if (!data.chatId) break;
+						if (location[2] === data.chatId) {
+							break;
+						}
+						toast(data.text, {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "dark",
+							onClick: () => {
+								window.location.href = `/friendship/${data.chatId}`;
+							}
+						});
 						break;
-
+					}
 					case "friend-request":
 						notif();
 						break;
 
-					case "call":
+					case "call": {
+						if (!data.path) break;
 						toast(data.text, {
 							position: "top-right",
 							autoClose: 5000,
@@ -49,6 +63,7 @@ export const notifications = () => {
 							}
 						});
 						break;
+					}
 
 					default:
 						break;

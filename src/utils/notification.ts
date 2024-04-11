@@ -1,10 +1,8 @@
-import { Socket, io } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { getProfile } from "../services/getProfile";
 import { toast } from "react-toastify";
 
-const socket: Socket = io(`${import.meta.env.VITE_API_URL}`);
-
-export const notifications = () => {
+export const notifications = (socket: Socket) => {
 	try {
 		getProfile().then((data) => {
 			socket.emit("join-notification", data!.pseudo);

@@ -31,7 +31,7 @@ export default function CharacterModel({
 		}, 32);
 
 		socket.on("remote-position", (data) => {
-			setPosition([data.x, data.y, data.z]);
+			setPosition([data.x, data.y + 1, data.z]);
 		});
 	}, []);
 

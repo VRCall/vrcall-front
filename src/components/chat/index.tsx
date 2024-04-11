@@ -14,11 +14,7 @@ import { FiPhoneCall } from "react-icons/fi";
 import { PiVideoCameraBold } from "react-icons/pi";
 import { BsBadgeVr } from "react-icons/bs";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
+const socket = io(`${import.meta.env.VITE_API_URL}`);
 
 export default function ChatFriend() {
 	const [messages, setMessages] = useState<Message[]>([]);
@@ -104,7 +100,8 @@ export default function ChatFriend() {
 					text: newMessage,
 					senderName: currentUser.pseudo,
 					chatId: id,
-					receiverName: sender?.pseudo
+					receiverName: sender?.pseudo,
+					sent_at: new Date()
 				});
 
 				setMessages((prevMessages) => [
@@ -113,7 +110,7 @@ export default function ChatFriend() {
 						text: newMessage,
 						id: id!,
 						senderName: currentUser.pseudo,
-						sent_at: new Date(Date.parse("HH:mm"))
+						sent_at: new Date()
 					}
 				]);
 				setNewMessage("");
@@ -183,7 +180,7 @@ export default function ChatFriend() {
 					</Link>
 					<Link
 						onClick={() => handleNotification(`/call/${id}`)}
-						to={`/call/${id}`}
+						to={`/three`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

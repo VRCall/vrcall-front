@@ -1,68 +1,8 @@
-.friend {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	padding: 0 1em;
-	margin: auto;
-	justify-content: space-between;
-	background-color: #1d415c;
-
-	&:hover {
-		background-color: rgb(28, 86, 128);
-		transition: all 0.2s;
-	}
-}
-
-.friendUl {
-	list-style-type: none;
-	overflow: scroll;
-	display: flex;
-	margin: 0 auto;
-	padding: 0%;
-	width: 95%;
-	flex-direction: column;
-}
 .tittle {
 	font-size: 24px;
 	margin: 20px auto;
 	color: #ffffff;
 	border-bottom: 2px solid rgb(215, 183, 2);
-}
-
-.friendLI {
-	list-style-type: none;
-	overflow: scroll;
-	display: flex;
-	flex-direction: column;
-	background-color: #1d415c;
-	border: 1px solid black;
-	margin: 3px 0;
-	border-radius: 4px;
-
-	&:hover {
-		z-index: 1;
-		background-color: rgb(28, 86, 128);
-		transition: all 0.2s;
-	}
-}
-
-.friendLink {
-	text-decoration: none;
-	color: white;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	text-align: center;
-}
-
-.petitePP {
-	width: 45px;
-}
-.buttonList {
-	background-color: #0c3451;
-	padding: 10px 14px;
-	border: none;
-	border-radius: 5px;
 }
 
 .container-search-friend {
@@ -88,12 +28,144 @@
 	box-sizing: border-box;
 	color: #333;
 	background-color: #fff;
+
+	&:focus {
+		outline: none;
+	}
+
+	&::placeholder {
+		text-align: center;
+	}
 }
 
-.search:focus {
-	outline: none;
+.friendUl {
+	list-style-type: none;
+	overflow: scroll;
+	display: flex;
+	margin: 0 auto;
+	padding: 0%;
+	width: 90%;
+	flex-direction: column;
 }
 
-.search::placeholder {
+.friendLI {
+	list-style-type: none;
+	overflow: scroll;
+	display: flex;
+	flex-direction: row;
+	border: none;
+	background-color: #1d415c;
+	margin: 3px 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.friendLink {
+	text-decoration: none;
+	color: white;
+	display: flex;
+	align-items: center;
+	width: 100%;
 	text-align: center;
+	justify-content: space-between;
+}
+
+.friend {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 0 1em;
+	margin: auto;
+	justify-content: space-between;
+	background-color: #1d415c;
+}
+
+.friendImg,
+.friendsName {
+	display: flex;
+
+	padding: 0 1em;
+	margin: auto;
+	justify-content: space-between;
+	background-color: #1d415c;
+}
+
+.friendImg {
+	display: flex;
+	width: 5%;
+	align-items: start;
+}
+
+.friendsName {
+	display: flex;
+	width: 87%;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttonList {
+	border: none;
+	width: 8%;
+	display: flex;
+	border-radius: 5px;
+	padding: 10px 0;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.friendParamLink {
+	text-decoration: none;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	background-color: #0c3451;
+	display: flex;
+	align-items: center;
+	margin: auto 17px;
+	width: 45px;
+	height: 35px;
+	text-align: center;
+
+	svg {
+		margin: auto;
+	}
+}
+.deleteLink {
+	position: absolute;
+	z-index: 1;
+	margin: 46px 62px 0 0;
+	width: 11%;
+	border-radius: 5px;
+	height: 80px;
+	border: none;
+	background-color: black;
+
+	button {
+		width: 100%;
+		height: 40px;
+		display: flex;
+		color: red;
+		background-color: black;
+		border: none;
+		align-items: center;
+		justify-content: center;
+		border-radius: 5px;
+
+		&:hover {
+			background-color: red;
+			color: whitesmoke;
+		}
+
+		span {
+			margin-left: 10px;
+		}
+	}
+}
+
+// .deleteLink button {
+// 	margin: 49px 62px 0 0;
+// }
+
+.petitePP {
+	width: 45px;
 }

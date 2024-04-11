@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { FriendListData, getFriendList } from "../../services/friendList";
 import "./FriendList.scss";
-import { Link } from "react-router-dom";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import DeleteFriendship from "./DeleteFriendship";
 
 export default function FriendList() {
 	const [friendList, setFriendList] = useState<FriendListData[] | undefined>(
 		[]
 	);
 	const [search, setSearch] = useState("");
+	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		getFriendList()
@@ -19,6 +22,14 @@ export default function FriendList() {
 				console.error(error);
 			});
 	}, []);
+
+	const handleDropdownClick = (friendship_id: string) => {
+		if (activeDropdown === friendship_id) {
+			setActiveDropdown(null);
+		} else {
+			setActiveDropdown(friendship_id);
+		}
+	};
 
 	return (
 		<>
@@ -31,7 +42,7 @@ export default function FriendList() {
 					style={{ color: "rgba(255, 255, 255, 0.87)" }}
 				/>
 			</div>
-			{friendList && friendList!.length === 0 ? (
+			{friendList && friendList.length === 0 ? (
 				<p>No friends to display</p>
 			) : (
 				<ul className="friendUl">
@@ -44,10 +55,14 @@ export default function FriendList() {
 							)
 							.map((friend, index) => (
 								<li key={index} className="friendLI">
-									<Link
-										className="friendLink"
-										to={`/friendship/${friend.friendship_id}`}>
-										<div className="friend">
+									<div
+										onClick={() =>
+											navigate(
+												`/friendship/${friend.friendship_id}`
+											)
+										}
+										className="friendLink">
+										<div className="friendImg">
 											<img
 												className="petitePP"
 												width={35}
@@ -55,18 +70,21 @@ export default function FriendList() {
 												// src={friend.img}
 												alt={friend.pseudo}
 											/>
+										</div>
+										<div className="friendsName">
 											<p className="friendName">
 												{friend.pseudo}
 											</p>
-											<button className="buttonList">
-												<Link
-													className="friendLink"
-													to={``}>
-													<HiOutlineDotsVertical />
-												</Link>
-											</button>
 										</div>
-									</Link>
+									</div>
+									<DeleteFriendship
+										friendship_id={friend.friendship_id}
+										active={
+											activeDropdown ===
+											friend.friendship_id
+										}
+										onClick={handleDropdownClick}
+									/>
 								</li>
 							))}
 				</ul>

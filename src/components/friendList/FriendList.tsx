@@ -39,7 +39,6 @@ export default function FriendList() {
 					className="search"
 					placeholder="Search Friend"
 					onChange={(e) => setSearch(e.target.value)}
-					style={{ color: "rgba(255, 255, 255, 0.87)" }}
 				/>
 			</div>
 			{friendList && friendList.length === 0 ? (

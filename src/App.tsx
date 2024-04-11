@@ -40,7 +40,7 @@ function App() {
 }
 
 function CustomLayout() {
-	notifications();
+	notifications(socket);
 	return (
 		<div className="layout">
 			<ToastContainer />

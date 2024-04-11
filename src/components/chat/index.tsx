@@ -6,21 +6,15 @@ import {
 	getCurrentUser
 } from "../../services/chat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
 import { getProfileByFriendshipId, Profile } from "../../services/getProfile";
 import { FiPhoneCall } from "react-icons/fi";
 import { PiVideoCameraBold } from "react-icons/pi";
 import { BsBadgeVr } from "react-icons/bs";
+import SocketProps from "../../utils/socket";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
-
-export default function ChatFriend() {
+export default function ChatFriend({ socket }: SocketProps) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [currentUser, setCurrentUser] = useState({});
 	const [newMessage, setNewMessage] = useState("");
@@ -104,7 +98,8 @@ export default function ChatFriend() {
 					text: newMessage,
 					senderName: currentUser.pseudo,
 					chatId: id,
-					receiverName: sender?.pseudo
+					receiverName: sender?.pseudo,
+					sent_at: new Date()
 				});
 
 				setMessages((prevMessages) => [
@@ -113,7 +108,7 @@ export default function ChatFriend() {
 						text: newMessage,
 						id: id!,
 						senderName: currentUser.pseudo,
-						sent_at: new Date(Date.parse("HH:mm"))
+						sent_at: new Date()
 					}
 				]);
 				setNewMessage("");
@@ -183,7 +178,7 @@ export default function ChatFriend() {
 					</Link>
 					<Link
 						onClick={() => handleNotification(`/call/${id}`)}
-						to={`/call/${id}`}
+						to={`/three`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

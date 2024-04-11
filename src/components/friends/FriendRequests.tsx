@@ -7,9 +7,9 @@ import {
 } from "../../services/getFriendRequest";
 import { acceptRequest } from "../../services/addFriends";
 import "./friendReq.scss";
-import { Socket } from "socket.io-client";
+import SocketProps from "../../utils/socket";
 
-export default function FriendRequests({ socket }: { socket: Socket }) {
+export default function FriendRequests({ socket }: SocketProps) {
 	const [friendRequest, setFriendRequest] = useState<
 		FriendRequest[] | undefined
 	>([]);

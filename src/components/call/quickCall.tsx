@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsCameraVideoFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
-import { useLocation } from "react-router-dom";
 import "../navBar/NavBar.scss";
 
 const QuickCall = () => {
@@ -18,9 +17,6 @@ const QuickCall = () => {
 	const handleRegenerate = () => {
 		setRoomId(uuidv4());
 	};
-
-	const location = useLocation();
-	console.log(window.location.origin);
 
 	return (
 		<>

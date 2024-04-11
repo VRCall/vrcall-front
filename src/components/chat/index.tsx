@@ -100,7 +100,8 @@ export default function ChatFriend() {
 					text: newMessage,
 					senderName: currentUser.pseudo,
 					chatId: id,
-					receiverName: sender?.pseudo
+					receiverName: sender?.pseudo,
+					sent_at: new Date()
 				});
 
 				setMessages((prevMessages) => [
@@ -109,7 +110,7 @@ export default function ChatFriend() {
 						text: newMessage,
 						id: id!,
 						senderName: currentUser.pseudo,
-						sent_at: new Date(Date.parse("HH:mm"))
+						sent_at: new Date()
 					}
 				]);
 				setNewMessage("");

@@ -37,7 +37,7 @@ export default function ChatFriend({ socket }: SocketProps) {
 				await checkFriendship(id!);
 				await loadMessages();
 				getUser();
-				socket.emit("join-chat", `chat-${id}`);
+				//socket.emit("join-chat", `chat-${id}`);
 				socket.on("receiveMessage", (data: any) => {
 					setMessages((prevMessages) => [
 						...prevMessages,
@@ -58,6 +58,7 @@ export default function ChatFriend({ socket }: SocketProps) {
 		fetchData();
 
 		return () => {
+			socket.emit("leave-chat", id);
 			socket.off("receiveMessage");
 		};
 	}, [id]);

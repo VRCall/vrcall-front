@@ -2,11 +2,7 @@ import { Socket, io } from "socket.io-client";
 import { getProfile } from "../services/getProfile";
 import { toast } from "react-toastify";
 
-const socket: Socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
+const socket: Socket = io(`${import.meta.env.VITE_API_URL}`);
 
 export const notifications = () => {
 	try {

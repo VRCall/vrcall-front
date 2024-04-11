@@ -1,8 +1,7 @@
 import { useVideoTexture } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Environment from "./Environment";
-import { DataConnection } from "peerjs";
 import { Socket } from "socket.io-client";
 
 type ExperienceProps = {
@@ -33,7 +32,7 @@ export default function Experience({
 
 	return (
 		<>
-			<Perf position={"top-left"} />
+			<Perf />
 
 			{/* <mesh position={[3, 2.5, -3]} scale={5}>
 				<planeGeometry />
@@ -41,14 +40,14 @@ export default function Experience({
 					<VideoMaterial src={localStream} type={"local"} />
 				</Suspense>
 			</mesh> */}
-			<mesh position={[-3, 2.5, -3]} scale={5}>
+			{/* <mesh position={[-3, 2.5, -3]} scale={5}>
 				<planeGeometry />
 				<Suspense fallback={null}>
 					<VideoMaterial src={remoteStream} type={"remote"} />
 				</Suspense>
-			</mesh>
+			</mesh> */}
 
-			<Environment socket={socket} />
+			<Environment socket={socket} remoteStream={remoteStream} />
 		</>
 	);
 }

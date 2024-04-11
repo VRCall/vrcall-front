@@ -17,8 +17,7 @@ export const getProfile = async () => {
 			`${import.meta.env.VITE_API_URL}/users/profile/`,
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
-					"ngrok-skip-browser-warning": true
+					Authorization: `Bearer ${token}`
 				}
 			}
 		);
@@ -43,8 +42,7 @@ export const getProfileByFriendshipId = async (friendshipId: string) => {
 			`${import.meta.env.VITE_API_URL}/users/profile/${friendshipId}`,
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
-					"ngrok-skip-browser-warning": true
+					Authorization: `Bearer ${token}`
 				}
 			}
 		);

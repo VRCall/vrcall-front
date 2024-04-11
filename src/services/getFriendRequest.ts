@@ -16,8 +16,7 @@ export const getFriendRequests = async () => {
 			`${import.meta.env.VITE_API_URL}/friendships/friend-requests`,
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
-					"ngrok-skip-browser-warning": true
+					Authorization: `Bearer ${token}`
 				}
 			}
 		);

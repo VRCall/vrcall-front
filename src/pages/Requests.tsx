@@ -1,14 +1,8 @@
 import AddFriends from "../components/friends/AddFriends";
 import FriendRequests from "../components/friends/FriendRequests";
-import io from "socket.io-client";
+import SocketProps from "../utils/socket";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`, {
-	extraHeaders: {
-		"ngrok-skip-browser-warning": "true"
-	}
-});
-
-export default function Requests() {
+export default function Requests({ socket }: SocketProps) {
 	return (
 		<>
 			<AddFriends socket={socket} />

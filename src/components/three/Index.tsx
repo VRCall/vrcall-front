@@ -2,7 +2,6 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import "./index.scss";
 
-import socketIO, { Socket } from "socket.io-client";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Peer from "peerjs";
@@ -12,10 +11,9 @@ import {
 } from "react-icons/bs";
 import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
 import { MdCallEnd } from "react-icons/md";
+import SocketProps from "../../utils/socket";
 
-const socket: Socket = socketIO(import.meta.env.VITE_API_URL);
-
-export default function Index() {
+export default function Index({ socket }: SocketProps) {
 	const [localStream, setLocalStream] = useState<MediaStream>();
 	const [remoteStream, setRemoteStream] = useState<MediaStream>();
 	const peerInstance = useRef<Peer>(null);

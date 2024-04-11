@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
-import { getCurrentUser } from "../../services/chat";
 import { checkFriendship } from "../../services/checkFriendship";
 import { MdCallEnd } from "react-icons/md";
 import {
@@ -11,12 +9,9 @@ import {
 	BsFillCameraVideoOffFill
 } from "react-icons/bs";
 import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
+import SocketProps from "../../utils/socket";
 
-type CallProps = {
-	socket: Socket;
-};
-
-export default function Index({ socket }: CallProps) {
+export default function Index({ socket }: SocketProps) {
 	const remoteVideoRef = useRef(null);
 	const currentUserVideoRef = useRef(null);
 	const [localStream, setLocalStream] = useState<MediaStream>();
@@ -26,12 +21,6 @@ export default function Index({ socket }: CallProps) {
 
 	const { roomId } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
-	console.log(searchParams.get("camera"));
-
-	const getUser = async (id: string) => {
-		const user = await getCurrentUser();
-		socket.emit("join-room", `call-${roomId}`, id);
-	};
 
 	const fetchData = async () => {
 		try {
@@ -47,7 +36,7 @@ export default function Index({ socket }: CallProps) {
 		const peer = new Peer();
 
 		peer.on("open", (id) => {
-			getUser(id);
+			socket.emit("join-room", `call-${roomId}`, id);
 		});
 
 		peer.on("call", (call) => {
@@ -72,6 +61,8 @@ export default function Index({ socket }: CallProps) {
 		peerInstance.current = peer;
 
 		socket.on("user-connected", (userId: string) => {
+			console.log("user joined your room");
+
 			call(userId);
 		});
 
@@ -94,7 +85,7 @@ export default function Index({ socket }: CallProps) {
 
 				const call = peerInstance.current.call(remotePeerId, stream);
 
-				call.on("stream", (remoteStream) => {
+				call.on("stream", (remoteStream: MediaStream) => {
 					remoteVideoRef.current.srcObject = remoteStream;
 					remoteVideoRef.current.play();
 				});

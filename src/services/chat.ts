@@ -17,8 +17,7 @@ export const getMessages = async (id: string): Promise<Message[]> => {
 			`${import.meta.env.VITE_API_URL}/chat/messages/${id}`,
 			{
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-					"ngrok-skip-browser-warning": true
+					Authorization: `Bearer ${localStorage.getItem("token")}`
 				}
 			}
 		);
@@ -47,8 +46,7 @@ export const sendMessage = async (data: {
 			{
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-					"ngrok-skip-browser-warning": true
+					Authorization: `Bearer ${localStorage.getItem("token")}`
 				}
 			}
 		);
@@ -68,8 +66,7 @@ export const getCurrentUser = async () => {
 		`${import.meta.env.VITE_API_URL}/users/current`,
 		{
 			headers: {
-				Authorization: `Bearer ${localStorage.getItem("token")}`,
-				"ngrok-skip-browser-warning": true
+				Authorization: `Bearer ${localStorage.getItem("token")}`
 			}
 		}
 	);

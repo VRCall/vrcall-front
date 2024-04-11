@@ -18,22 +18,24 @@
 	margin: 0;
 }
 
-.friend-request-details-img,
-.friend-resquest-details-name,
-.friend-request-buttons-container {
+.friend-request-details-img {
 	width: 33%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.friend-resquest-details-name {
+	width: 34%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
 
-	.friend-request-details-img {
-		justify-content: flex-start;
-	}
-
-	.friend-request-buttons-container {
-		flex-direction: row;
-		justify-content: flex-end;
-	}
+.friend-request-buttons-container {
+	width: 33%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
 
 .friend-request-item {

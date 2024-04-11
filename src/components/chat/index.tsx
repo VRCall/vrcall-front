@@ -142,6 +142,16 @@ export default function ChatFriend() {
 		}
 	};
 
+	const handleNotification = (path: string) => {
+		socket.emit("send-call-notification", {
+			type: "call",
+			text: "Incoming call from " + currentUser.pseudo,
+			path: path,
+			senderName: currentUser.pseudo,
+			receiverName: sender?.pseudo
+		});
+	};
+
 	return (
 		<div className="chat">
 			<div className="headerChat">
@@ -150,6 +160,9 @@ export default function ChatFriend() {
 				</div>
 				<div className="headerD">
 					<Link
+						onClick={() =>
+							handleNotification(`/call/${id}?camera=false`)
+						}
 						to={`/call/${id}?camera=false`}
 						target="_blank"
 						style={{ display: "inherit" }}>
@@ -158,6 +171,9 @@ export default function ChatFriend() {
 						</button>
 					</Link>
 					<Link
+						onClick={() =>
+							handleNotification(`/call/${id}?camera=true`)
+						}
 						to={`/call/${id}?camera=true`}
 						target="_blank"
 						style={{ display: "inherit" }}>
@@ -166,7 +182,8 @@ export default function ChatFriend() {
 						</button>
 					</Link>
 					<Link
-						to={`/three`}
+						onClick={() => handleNotification(`/call/${id}`)}
+						to={`/call/${id}`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

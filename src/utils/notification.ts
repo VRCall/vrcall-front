@@ -31,7 +31,19 @@ export const notifications = () => {
 						break;
 
 					case "call":
-						console.log("Call notification", data);
+						toast(data.text, {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "dark",
+							onClick: () => {
+								window.open(data.path);
+							}
+						});
 						break;
 
 					default:

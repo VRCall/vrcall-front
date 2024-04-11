@@ -3,7 +3,6 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
-import { getCurrentUser } from "../../services/chat";
 import { checkFriendship } from "../../services/checkFriendship";
 import { MdCallEnd } from "react-icons/md";
 import {

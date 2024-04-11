@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { addFriend } from "../../services/addFriends";
 import "./addFriends.scss";
-import { Socket } from "socket.io-client";
+import SocketProps from "../../utils/socket";
 
-export const AddFriends = ({ socket }: { socket: Socket }) => {
+export const AddFriends = ({ socket }: SocketProps) => {
 	const [friendName, setFriendName] = useState<string>("");
 
 	const handleAddFriend = async () => {

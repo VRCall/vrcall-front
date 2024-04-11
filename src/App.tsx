@@ -13,6 +13,9 @@ import Three from "./pages/Three";
 import { notifications } from "./utils/notification";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import io from "socket.io-client";
+
+const socket = io(`${import.meta.env.VITE_API_URL}`);
 
 function App() {
 	return (
@@ -22,8 +25,11 @@ function App() {
 					<Route path="register" element={<Register />} />
 					<Route path="login" element={<Login />} />
 					<Route path="*" element={<CustomLayout />} />
-					<Route path="call/:roomId" element={<Call />} />
-					<Route path="three" element={<Three />} />
+					<Route
+						path="call/:roomId"
+						element={<Call socket={socket} />}
+					/>
+					<Route path="three" element={<Three socket={socket} />} />
 				</Routes>
 			</AuthGuard>
 		</BrowserRouter>
@@ -31,7 +37,7 @@ function App() {
 }
 
 function CustomLayout() {
-	notifications();
+	notifications(socket);
 	return (
 		<div className="layout">
 			<ToastContainer />
@@ -40,10 +46,13 @@ function CustomLayout() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="*" element={<Home />} />
-					<Route path="/friendship/:id" element={<Chat />} />
+					<Route
+						path="/friendship/:id"
+						element={<Chat socket={socket} />}
+					/>
 					<Route
 						path="/friendships/requests"
-						element={<Requests />}
+						element={<Requests socket={socket} />}
 					/>
 					<Route path="/profile" element={<Profile />} />
 				</Routes>

@@ -29,7 +29,10 @@ function App() {
 						path="call/:roomId"
 						element={<Call socket={socket} />}
 					/>
-					<Route path="three" element={<Three socket={socket} />} />
+					<Route
+						path="three/:roomId"
+						element={<Three socket={socket} />}
+					/>
 				</Routes>
 			</AuthGuard>
 		</BrowserRouter>

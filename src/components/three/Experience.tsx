@@ -32,7 +32,7 @@ export default function Experience({
 
 	return (
 		<>
-			<Perf />
+			{/* <Perf /> */}
 
 			{/* <mesh position={[3, 2.5, -3]} scale={5}>
 				<planeGeometry />
@@ -50,16 +50,4 @@ export default function Experience({
 			<Environment socket={socket} remoteStream={remoteStream} />
 		</>
 	);
-}
-
-type VideoMaterialProps = {
-	src: MediaStream;
-	type: string;
-};
-
-function VideoMaterial({ src, type }: VideoMaterialProps) {
-	const texture = useVideoTexture(src, {
-		muted: type === "local"
-	});
-	return <meshBasicMaterial map={texture} toneMapped={false} />;
 }

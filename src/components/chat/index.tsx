@@ -177,8 +177,8 @@ export default function ChatFriend({ socket }: SocketProps) {
 						</button>
 					</Link>
 					<Link
-						onClick={() => handleNotification(`/call/${id}`)}
-						to={`/three`}
+						onClick={() => handleNotification(`/three/${id}`)}
+						to={`/three/${id}`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

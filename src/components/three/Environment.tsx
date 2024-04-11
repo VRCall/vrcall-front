@@ -11,7 +11,7 @@ type EnvironmentProps = {
 export default function Environment({ socket }: EnvironmentProps) {
 	return (
 		<>
-			<Physics timeStep={"vary"}>
+			<Physics debug timeStep={"vary"}>
 				<Suspense fallback={null}>
 					<CharacterModel socket={socket} />
 				</Suspense>

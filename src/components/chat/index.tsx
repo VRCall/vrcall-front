@@ -6,17 +6,15 @@ import {
 	getCurrentUser
 } from "../../services/chat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import io from "socket.io-client";
 import { checkFriendship } from "../../services/checkFriendship";
 import "./indexChat.scss";
 import { getProfileByFriendshipId, Profile } from "../../services/getProfile";
 import { FiPhoneCall } from "react-icons/fi";
 import { PiVideoCameraBold } from "react-icons/pi";
 import { BsBadgeVr } from "react-icons/bs";
+import SocketProps from "../../utils/socket";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`);
-
-export default function ChatFriend() {
+export default function ChatFriend({ socket }: SocketProps) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [currentUser, setCurrentUser] = useState({});
 	const [newMessage, setNewMessage] = useState("");

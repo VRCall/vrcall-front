@@ -1,6 +1,5 @@
 import { KeyboardControls, useVideoTexture } from "@react-three/drei";
 import Ecctrl from "ecctrl";
-import { DataConnection } from "peerjs";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Socket } from "socket.io-client";
 import { DoubleSide } from "three";

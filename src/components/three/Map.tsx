@@ -8,8 +8,8 @@ export default function Map() {
 			<RigidBody type="fixed" colliders="cuboid" ccd>
 				<group dispose={null}>
 					<group>
-						<mesh position-y={-1}>
-							<boxGeometry args={[25, 1, 25]} />
+						<mesh position-y={-3}>
+							<boxGeometry args={[25, 3, 25]} />
 							<meshBasicMaterial color={"red"} />
 						</mesh>
 					</group>

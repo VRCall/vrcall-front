@@ -1,8 +1,7 @@
 import { useVideoTexture } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Environment from "./Environment";
-import { DataConnection } from "peerjs";
 import { Socket } from "socket.io-client";
 
 type ExperienceProps = {

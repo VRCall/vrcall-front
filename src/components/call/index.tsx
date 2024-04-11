@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Socket } from "socket.io-client";
 import "./index.scss";
 import Peer from "peerjs";
 import { checkFriendship } from "../../services/checkFriendship";
@@ -10,12 +9,9 @@ import {
 	BsFillCameraVideoOffFill
 } from "react-icons/bs";
 import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
+import SocketProps from "../../utils/socket";
 
-type CallProps = {
-	socket: Socket;
-};
-
-export default function Index({ socket }: CallProps) {
+export default function Index({ socket }: SocketProps) {
 	const remoteVideoRef = useRef(null);
 	const currentUserVideoRef = useRef(null);
 	const [localStream, setLocalStream] = useState<MediaStream>();

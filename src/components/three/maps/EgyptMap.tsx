@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useTexture } from "@react-three/drei";
+import { useTexture, Sky } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 
 export default function EgyptMap() {
@@ -44,31 +44,34 @@ export default function EgyptMap() {
 
 function Cactus({ position }: { position: [x: number, y: number, z: number] }) {
 	return (
-		<group position={position}>
-			<mesh>
-				<capsuleGeometry args={[0.4, 5, 3]} />
-				<meshBasicMaterial color="green" />
-			</mesh>
-			<group position={[0, 0, 0.9]}>
-				<mesh rotation-x={Math.PI * 0.5}>
-					<capsuleGeometry args={[0.2, 1.25, 1]} />
+		<>
+			<group position={position}>
+				<mesh>
+					<capsuleGeometry args={[0.4, 5, 3]} />
 					<meshBasicMaterial color="green" />
 				</mesh>
-				<mesh position={[0, 0.5, 0.5]}>
-					<capsuleGeometry args={[0.15, 1, 1]} />
-					<meshBasicMaterial color="green" />
-				</mesh>
+				<group position={[0, 0, 0.9]}>
+					<mesh rotation-x={Math.PI * 0.5}>
+						<capsuleGeometry args={[0.2, 1.25, 1]} />
+						<meshBasicMaterial color="green" />
+					</mesh>
+					<mesh position={[0, 0.5, 0.5]}>
+						<capsuleGeometry args={[0.15, 1, 1]} />
+						<meshBasicMaterial color="green" />
+					</mesh>
+				</group>
+				<group position={[0, 0.75, -0.9]}>
+					<mesh rotation-x={Math.PI * 0.5}>
+						<capsuleGeometry args={[0.2, 1.25, 1]} />
+						<meshBasicMaterial color="green" />
+					</mesh>
+					<mesh position={[0, 0.5, -0.5]}>
+						<capsuleGeometry args={[0.15, 1, 1]} />
+						<meshBasicMaterial color="green" />
+					</mesh>
+				</group>
 			</group>
-			<group position={[0, 0.75, -0.9]}>
-				<mesh rotation-x={Math.PI * 0.5}>
-					<capsuleGeometry args={[0.2, 1.25, 1]} />
-					<meshBasicMaterial color="green" />
-				</mesh>
-				<mesh position={[0, 0.5, -0.5]}>
-					<capsuleGeometry args={[0.15, 1, 1]} />
-					<meshBasicMaterial color="green" />
-				</mesh>
-			</group>
-		</group>
+			<Sky />
+		</>
 	);
 }

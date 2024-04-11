@@ -1,4 +1,4 @@
-import { useTexture } from "@react-three/drei";
+import { useTexture, Sky } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
 
@@ -43,6 +43,7 @@ export default function FirstMap() {
 					</group>
 				);
 			})}
+			<Sky />
 		</>
 	);
 }

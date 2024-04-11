@@ -12,6 +12,7 @@ import {
 import { PiMicrophoneFill, PiMicrophoneSlashFill } from "react-icons/pi";
 import { MdCallEnd } from "react-icons/md";
 import SocketProps from "../../utils/socket";
+import { checkFriendship } from "../../services/checkFriendship";
 
 export default function Index({ socket }: SocketProps) {
 	const [localStream, setLocalStream] = useState<MediaStream>();
@@ -23,7 +24,17 @@ export default function Index({ socket }: SocketProps) {
 
 	const { roomId } = useParams();
 
+	const friendship = async () => {
+		try {
+			await checkFriendship(roomId);
+		} catch (error) {
+			console.error("Error checking friendship:", error);
+			window.close();
+		}
+	};
+
 	useEffect(() => {
+		friendship();
 		const peer = new Peer();
 
 		peer.on("open", (id) => {

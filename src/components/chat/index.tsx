@@ -37,7 +37,7 @@ export default function ChatFriend({ socket }: SocketProps) {
 				await checkFriendship(id!);
 				await loadMessages();
 				getUser();
-				socket.emit("join-chat", `chat-${id}`);
+				//socket.emit("join-chat", `chat-${id}`);
 				socket.on("receiveMessage", (data: any) => {
 					setMessages((prevMessages) => [
 						...prevMessages,
@@ -177,8 +177,8 @@ export default function ChatFriend({ socket }: SocketProps) {
 						</button>
 					</Link>
 					<Link
-						onClick={() => handleNotification(`/call/${id}`)}
-						to={`/three`}
+						onClick={() => handleNotification(`/three/${id}`)}
+						to={`/three/${id}`}
 						target="_blank"
 						style={{ display: "inherit" }}>
 						<button className="btn3D">

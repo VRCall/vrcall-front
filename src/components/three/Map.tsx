@@ -1,9 +1,9 @@
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
-import { Sky } from "@react-three/drei";
 import { useSearchParams } from "react-router-dom";
 import BasicMap from "./maps/BasicMap";
 import FirstMap from "./maps/FirstMap";
 import EgyptMap from "./maps/EgyptMap";
+import NightMap from "./maps/NightMap";
 
 export default function Map() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -11,10 +11,11 @@ export default function Map() {
 	const maps = {
 		basic: <BasicMap />,
 		first: <FirstMap />,
-		egypt: <EgyptMap />
+		egypt: <EgyptMap />,
+		night: <NightMap />
 	};
 
-	const mapNames = ["basic", "first", "egypt"];
+	const mapNames = ["basic", "first", "egypt", "night"];
 
 	return (
 		<>
@@ -25,7 +26,6 @@ export default function Map() {
 			) : (
 				<BasicMap />
 			)}
-			<Sky />
 			<RigidBody type="fixed">
 				<CuboidCollider args={[37.5, 2, 0.5]} position={[0, 0, 38]} />
 				<CuboidCollider args={[37.5, 2, 0.5]} position={[0, 0, -38]} />

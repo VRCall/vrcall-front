@@ -28,29 +28,6 @@ export default function NightMap() {
 			</RigidBody>
 
 			<RigidBody type="fixed">
-				<CuboidCollider
-					args={[mapSize, 2, wallThickness]}
-					position={[0, 1, wallPosition]}
-				/>{" "}
-				{/* Mur nord */}
-				<CuboidCollider
-					args={[mapSize, 2, wallThickness]}
-					position={[0, 1, -wallPosition]}
-				/>{" "}
-				{/* Mur sud */}
-				<CuboidCollider
-					args={[wallThickness, 2, mapSize]}
-					position={[wallPosition, 1, 0]}
-				/>{" "}
-				{/* Mur est */}
-				<CuboidCollider
-					args={[wallThickness, 2, mapSize]}
-					position={[-wallPosition, 1, 0]}
-				/>{" "}
-				{/* Mur ouest */}
-			</RigidBody>
-
-			<RigidBody type="fixed">
 				<mesh position={[10, 20, 30]}>
 					<sphereGeometry args={[3, 32, 32]} />
 					<meshBasicMaterial map={moonTexture} />

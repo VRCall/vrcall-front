@@ -58,6 +58,7 @@ export default function ChatFriend({ socket }: SocketProps) {
 		fetchData();
 
 		return () => {
+			socket.emit("leave-chat", id);
 			socket.off("receiveMessage");
 		};
 	}, [id]);

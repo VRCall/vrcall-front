@@ -57,7 +57,7 @@ export default function NightMap() {
 				</mesh>
 			</RigidBody>
 
-			{Array.from({ length: 30 }).map((_, index) => (
+			{Array.from({ length: 100 }).map((_, index) => (
 				<RigidBody
 					key={index}
 					type="fixed"

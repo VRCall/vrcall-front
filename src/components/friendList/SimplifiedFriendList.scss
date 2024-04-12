@@ -1,0 +1,39 @@
+.sFriendList {
+	list-style-type: none;
+	overflow: scroll;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	flex-direction: column;
+	width: 100%;
+
+	li {
+		display: flex;
+		align-items: center;
+		background-color: #1d415c;
+		border-radius: 3px;
+		font-size: 1em;
+		margin-bottom: 10px;
+		height: 6vh;
+
+		&:hover {
+			background-color: rgb(28, 86, 128);
+			transition: all 0.3s;
+		}
+	}
+
+	.petitePP {
+		height: 100%;
+		margin-right: 1vh;
+	}
+
+	.sFriend {
+		text-decoration: none;
+		color: white;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: flex-start;
+		padding: 5px 0;
+	}
+}

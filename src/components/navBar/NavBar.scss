@@ -1,0 +1,105 @@
+.navBarBody {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
+	align-items: center;
+	width: 20%;
+	background-color: #0c3451;
+}
+
+.links {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	height: 5vh;
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: #1d415c;
+	text-decoration: none;
+	font-size: 1em;
+	line-height: 2;
+	color: white;
+	border-radius: 3px;
+
+	&:hover {
+		background-color: rgb(28, 86, 128);
+		transition: all 0.3s;
+	}
+
+	.linkText {
+		margin-left: 10px;
+	}
+
+	.linkIcon {
+		margin-left: 10px;
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.links:first-child {
+	margin-top: 10px;
+}
+
+.linksMessages {
+	height: 64%;
+	width: 90%;
+
+	.messages {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h2 {
+			border-bottom: 2px solid rgb(215, 183, 2);
+		}
+	}
+}
+
+.listFriends {
+	width: 100%;
+	height: 82%;
+}
+
+.parameters {
+	margin: auto;
+	width: 90%;
+	border-top: 2px solid rgb(215, 183, 2);
+}
+
+.disconnectButton {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	width: 90%;
+	color: red;
+	margin-bottom: 10px;
+	background-color: #1d415c;
+	text-decoration: none;
+	font-size: 1em;
+	line-height: 2;
+	border-radius: 3px;
+	border: none;
+	padding: 0;
+
+	&:hover {
+		cursor: pointer;
+		background-color: rgb(28, 86, 128);
+		transition: all 0.3s;
+	}
+}
+
+.buttonLinkIcon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+
+	.buttonText {
+		margin-left: 10px;
+	}
+}

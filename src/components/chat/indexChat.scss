@@ -1,0 +1,145 @@
+.chat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: #4c5f7a;
+
+	.headerChat {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		height: 12%;
+		background-color: #0c3451;
+
+		.headerG {
+			border-left: 2px solid rgb(215, 183, 2);
+			display: flex;
+			width: 50%;
+			margin: 1em;
+			align-items: center;
+		}
+		.headerG h1 {
+			margin: auto auto auto 0.5em;
+		}
+
+		.headerD {
+			width: 50%;
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: row;
+			margin: 0 1.5em;
+		}
+
+		.btncall,
+		.btnvisio,
+		.btn3D {
+			margin: auto 0.5em;
+			width: 45px;
+			padding: 0.4em 0 0 0;
+			border-radius: 4px;
+			height: 45px;
+			background-color: #1d415c;
+			color: whitesmoke;
+			cursor: pointer;
+			border: 1px solid rgb(215, 183, 2);
+
+			&:hover {
+				background-color: rgb(28, 86, 128);
+				transition: all 0.3s;
+			}
+		}
+	}
+
+	.chat-input {
+		width: 100%;
+		height: 88%;
+		overflow-y: auto;
+	}
+
+	.chat-container {
+		width: 100%;
+		height: 90%;
+		overflow-y: auto;
+
+		.message {
+			padding: 5px;
+			border-radius: 5px;
+			color: white;
+			overflow-wrap: break-word;
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-start;
+			max-width: 100%;
+
+			&:hover {
+				background-color: rgb(28, 86, 128);
+				transition: all 0.2s;
+			}
+		}
+
+		.container {
+			display: flex;
+			flex-direction: row;
+			margin-left: 0.2rem;
+			justify-content: space-between;
+		}
+
+		.textMessage {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.dateMessage {
+			display: flex;
+			font-style: italic;
+			font-size: x-small;
+			align-items: flex-end;
+		}
+	}
+
+	.petitePP {
+		width: 35px;
+		margin: auto 1vh auto 0;
+	}
+
+	.message-input {
+		margin: 0 auto 15px auto;
+		display: flex;
+		width: 94%;
+
+		input[type="text"],
+		input[type="text"]:focus-visible {
+			flex-grow: 1;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			margin-right: 10px;
+			outline: none;
+			background-color: whitesmoke;
+			color: black;
+		}
+
+		button {
+			padding: 10px 20px;
+			border: none;
+			background-color: #1d415c;
+			border: 2px solid rgb(215, 183, 2);
+			color: white;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+
+			&:hover {
+				background-color: rgb(28, 86, 128);
+			}
+		}
+	}
+
+	.error {
+		color: red;
+		margin-top: 10px;
+	}
+}

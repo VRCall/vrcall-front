@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 export default function FirstMap() {
 	const grassTexture = useTexture("/textures/grass.jpg");
-	const woodTexture = useTexture("/textures/sakura_bark_diff_1k.png");
+	const woodTexture = useTexture("/textures/sakura_bark_diff_1k.jpg");
 	woodTexture.colorSpace = THREE.SRGBColorSpace;
 	grassTexture.repeat.set(16, 16);
 	grassTexture.wrapS = THREE.RepeatWrapping;

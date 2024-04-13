@@ -17,13 +17,13 @@ export default function Map() {
 		island: <IslandMap />
 	};
 
-	const mapNames = ["basic", "first", "egypt", "night"];
+	const mapNames = ["basic", "first", "egypt", "night", "island"];
 
 	return (
 		<>
 			{!searchParams.get("map") ? (
 				<BasicMap />
-			) : mapNames.includes(searchParams.get("map")) ? (
+			) : mapNames.includes(searchParams.get("map")!) ? (
 				maps[searchParams.get("map")]
 			) : (
 				<BasicMap />

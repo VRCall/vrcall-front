@@ -3,6 +3,8 @@ import { RegisterData, registerUser } from "../../services/register";
 import "./index.scss";
 import { FaEnvelope, FaLock, FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { createNotification } from "../../utils/createNotification";
 
 export default function Index() {
 	const [formData, setFormData] = useState<RegisterData>({
@@ -30,8 +32,11 @@ export default function Index() {
 		event.preventDefault();
 		registerUser(formData)
 			.then((response: any) => {
-				if (response === 201) {
+				if (response.status === 201) {
+					createNotification(response.message, "success");
 					navigate("/login");
+				} else if (response.status === 400) {
+					createNotification(response.message, "error");
 				}
 			})
 			.catch((error) => {

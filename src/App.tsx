@@ -10,18 +10,21 @@ import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
 import Call from "./pages/Call";
 import Three from "./pages/Three";
-import { notifications } from "./utils/notification";
+import { socketNotifications } from "./utils/socketNotifications";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import io from "socket.io-client";
+import Verify from "./pages/Verify";
 
 const socket = io(`${import.meta.env.VITE_API_URL}`);
 
 function App() {
 	return (
 		<BrowserRouter>
+			<ToastContainer />
 			<AuthGuard>
 				<Routes>
+					<Route path="verify/:id" element={<Verify />} />
 					<Route path="register" element={<Register />} />
 					<Route path="login" element={<Login />} />
 					<Route path="*" element={<CustomLayout />} />
@@ -40,7 +43,7 @@ function App() {
 }
 
 function CustomLayout() {
-	notifications(socket);
+	socketNotifications(socket);
 	return (
 		<div className="layout">
 			<ToastContainer />

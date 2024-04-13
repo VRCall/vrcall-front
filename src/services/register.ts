@@ -31,7 +31,17 @@ export const registerUser = async (data: RegisterData) => {
 	await axios
 		.post(`${import.meta.env.VITE_API_URL}/users/signup`, formData)
 		.then((response: AxiosResponse) => {
-			result = response.status;
+			result = {
+				message: response.data.message,
+				status: response.status
+			};
+		})
+		.catch((error) => {
+			console.log(error);
+			result = {
+				message: error.response.data.message,
+				status: error.response.status
+			};
 		});
 
 	return result;

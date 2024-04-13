@@ -15,12 +15,17 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 		// Check if current location is login or signup
 		const isLoginPage = location.pathname === "/login";
 		const isRegisterPage = location.pathname === "/register";
+		const isVerifyPage = location.pathname.startsWith("/verify/");
 
 		const hasToken = !!localStorage.getItem("token");
 
 		if (!hasToken && !isLoginPage && !isRegisterPage) {
-			navigate("/login");
-			setIsLoading(false);
+			if (isVerifyPage && location.pathname.split("/")[2] !== "") {
+				setIsLoading(false);
+			} else {
+				navigate("/login");
+				setIsLoading(false);
+			}
 		}
 
 		const authToken = localStorage.getItem("token") || "";

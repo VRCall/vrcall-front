@@ -3,6 +3,7 @@ import { LoginData, loginUser } from "../../services/login";
 import "./index.scss";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { createNotification } from "../../utils/createNotification";
 
 export default function Index() {
 	const [formData, setFormData] = useState<LoginData>({
@@ -19,11 +20,13 @@ export default function Index() {
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const response = await loginUser(formData);
-
-		if (response === 200) {
-			navigate("/");
-		}
+		loginUser(formData).then((response: any) => {
+			if (response.status === 200) {
+				navigate("/");
+			} else if (response.status === 400 || response.status === 401) {
+				createNotification(response.message, "error");
+			}
+		});
 	};
 
 	return (

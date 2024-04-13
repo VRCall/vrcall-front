@@ -2,7 +2,7 @@ import { Socket } from "socket.io-client";
 import { getProfile } from "../services/getProfile";
 import { toast } from "react-toastify";
 
-export const notifications = (socket: Socket) => {
+export const socketNotifications = (socket: Socket) => {
 	try {
 		getProfile().then((data) => {
 			socket.emit("join-notification", data!.pseudo);

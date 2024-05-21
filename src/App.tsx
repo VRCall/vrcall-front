@@ -15,9 +15,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import io from "socket.io-client";
 
-const socket = io(`${import.meta.env.VITE_API_URL}`);
+const socket = io(`http://localhost:8002`);
+import Network from "./services/networkChat";
+import { useEffect, useRef } from "react";
 
 function App() {
+	const network = useRef(new Network());
+	useEffect(() => {
+		network.current.createOrJoin();
+	}, []);
 	return (
 		<BrowserRouter>
 			<AuthGuard>

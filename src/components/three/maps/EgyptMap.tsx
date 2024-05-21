@@ -38,6 +38,7 @@ export default function EgyptMap() {
 			<Cactus position={[-10, 0, -8]} />
 			<Cactus position={[15, 0, -13]} />
 			<Cactus position={[-15, 0, 13]} />
+			<Sky />
 		</>
 	);
 }

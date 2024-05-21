@@ -5,6 +5,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { ImExit } from "react-icons/im";
 import QuickCall from "../call/quickCall";
+import { FiMap } from "react-icons/fi";
 
 export default function NavBar() {
 	const navigate = useNavigate();
@@ -43,6 +44,12 @@ export default function NavBar() {
 						<CgProfile />
 					</div>
 					<p className="linkText">Profile</p>
+				</Link>
+				<Link to={"/map-maker"} className="links">
+					<div className="linkIcon">
+						<FiMap />
+					</div>
+					<p className="linkText">Map maker</p>
 				</Link>
 				<QuickCall />
 			</div>

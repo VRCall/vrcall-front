@@ -14,6 +14,7 @@ import { notifications } from "./utils/notification";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import io from "socket.io-client";
+import MapMaker from "./pages/MapMaker";
 
 const socket = io(`${import.meta.env.VITE_API_URL}`);
 
@@ -33,6 +34,7 @@ function App() {
 						path="three/:roomId"
 						element={<Three socket={socket} />}
 					/>
+					<Route path="map-maker" element={<MapMaker />} />
 				</Routes>
 			</AuthGuard>
 		</BrowserRouter>

@@ -27,12 +27,12 @@ export default function NightMap() {
 				</group>
 			</RigidBody>
 
-			<RigidBody type="fixed">
-				<mesh position={[10, 20, 30]}>
-					<sphereGeometry args={[3, 32, 32]} />
-					<meshBasicMaterial map={moonTexture} />
-				</mesh>
-			</RigidBody>
+			{/* <RigidBody type="fixed"> */}
+			<mesh position={[10, 20, 30]}>
+				<sphereGeometry args={[3, 32, 32]} />
+				<meshBasicMaterial map={moonTexture} />
+			</mesh>
+			{/* </RigidBody> */}
 
 			{Array.from({ length: 100 }).map((_, index) => (
 				<RigidBody

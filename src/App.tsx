@@ -16,13 +16,13 @@ import "react-toastify/dist/ReactToastify.css";
 import io from "socket.io-client";
 
 const socket = io(`http://localhost:8002`);
-import Network from "./services/networkChat";
+import Network from "./utils/networkChat";
 import { useEffect, useRef } from "react";
 
 function App() {
 	const network = useRef(new Network());
 	useEffect(() => {
-		network.current.createOrJoin();
+		network.current;
 	}, []);
 	return (
 		<BrowserRouter>

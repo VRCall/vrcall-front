@@ -12,8 +12,7 @@ export default class Network {
 		this.client = new Client(endpoint);
 	}
 
-	async createOrJoin(chatId: string) {
-		this.room = await this.client.joinOrCreate(chatId);
-		console.log(this.room);
+	async createOrJoin(chatId: string, userId: string) {
+		this.room = await this.client.joinOrCreate(chatId, { userId });
 	}
 }
